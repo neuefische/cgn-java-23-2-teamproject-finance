@@ -15,8 +15,13 @@
     <description>backend</description>
     <properties>
         <java.version>20</java.version>
+
+            <sonar.organization>neuefische</sonar.organization>
+            <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+
     </properties>
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
