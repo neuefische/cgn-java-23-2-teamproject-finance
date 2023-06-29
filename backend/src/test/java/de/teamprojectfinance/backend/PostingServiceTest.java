@@ -16,7 +16,7 @@ class PostingServiceTest {
     PostingService postingService = new PostingService(postingRepo, idService);
 
     @Test
-    void WhenPostindAdded_ThenReturnPoting(){
+    void whenPostindAdded_ThenReturnPosting(){
         //Gvien
 
         PostingModel givenTestModel = new PostingModel("test", 23);
