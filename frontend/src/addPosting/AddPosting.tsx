@@ -13,11 +13,13 @@ export default function AddPosting(){
     function handleSubmit(event: FormEvent<HTMLFormElement>){
         event.preventDefault()
         axios.post(
-            "/api/finance",{
+            "/api/finance/",{
                 "description": description,
                 "amount": amount
             }
-        ).catch(console.error)
+        ).then(response =>{
+            console.log(response.data)
+        }).catch(console.error)
         setAmount(0)
         setDescription("")
 
