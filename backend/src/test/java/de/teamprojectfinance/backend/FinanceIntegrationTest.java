@@ -14,7 +14,7 @@ import java.util.List;
 
 @SpringBootTest
 @AutoConfigureMockMvc
- class FinanceIntegrationTest {
+ class PostingIntegrationTest {
     @Autowired
     MockMvc mockMvc;
     @Autowired
