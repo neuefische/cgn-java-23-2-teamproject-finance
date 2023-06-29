@@ -1,8 +1,7 @@
 package de.teamprojectfinance.backend;
 
-import java.math.BigDecimal;
 import java.util.Objects;
-import java.util.UUID;
+
 
 public class PostingModel {
 
@@ -46,23 +45,10 @@ public class PostingModel {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public int getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
 
-    public PostingCategory getCategory() {
-        return category;
-    }
 
-    public void setCategory(PostingCategory category) {
-        this.category = category;
-    }
 }

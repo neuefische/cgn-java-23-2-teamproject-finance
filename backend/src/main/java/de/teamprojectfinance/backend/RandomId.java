@@ -7,9 +7,7 @@ import java.util.UUID;
 @Component
 public class RandomId {
 
-    public RandomId(){
 
-    }
 
     public  String createRandomId(){
         return UUID.randomUUID().toString();
