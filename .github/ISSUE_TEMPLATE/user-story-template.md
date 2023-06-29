@@ -22,6 +22,12 @@ As a ..., I want to ..., so I can ...
 
 - [ ] This is something that can be verified to show that this user story is satisfied.
 
+# Acceptance criteria
+- Frontend
+- []
+- Backend
+- []
+
 # Sprint Ready Checklist 
 1. - [ ] Acceptance criteria defined 
 2. - [ ] Team understands acceptance criteria 
