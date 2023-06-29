@@ -16,7 +16,7 @@ class PostingServiceTest {
     PostingService postingService = new PostingService(postingRepo, idService);
 
     @Test
-    void whenPostindAdded_ThenReturnPosting(){
+    void whenPostindAdded_ThenReturnPosting() {
         //Gvien
 
         PostingModel givenTestModel = new PostingModel("test", 23);
@@ -31,10 +31,10 @@ class PostingServiceTest {
 
         PostingModel actualModel = postingService.addPosting(givenTestModel);
         //Then
-       assertEquals(givenTestModel1,actualModel );
-       verify(postingRepo).addPosting(givenTestModel);
+        verify(postingRepo).addPosting(givenTestModel);
+        verify(idService).createRandomId();
+        assertEquals(givenTestModel1, actualModel);
 
-       verify(idService).createRandomId();
 
     }
 
