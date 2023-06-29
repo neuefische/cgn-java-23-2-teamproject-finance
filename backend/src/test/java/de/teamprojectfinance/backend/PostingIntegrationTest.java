@@ -12,34 +12,39 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
 @SpringBootTest
 @AutoConfigureMockMvc
- class PostingIntegrationTest {
+class PostingIntegrationTest {
     @Autowired
     MockMvc mockMvc;
     @Autowired
     PostingRepo postingRepo;
+
     @Test
     void WhenAddingPosting_ThenReturnPosting() throws Exception {
         //Given
 
         //When
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/finance/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                {
-                                    "description": "test",
-                                    "amount": "13"
-                                }
-                                """
-                        )
-        );
+                        MockMvcRequestBuilders.post("/api/finance/")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("""
+                                        {
+                                            "description": "test",
+                                            "amount": "13"
+                                        }
+                                        """
+                                ))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("id").isNotEmpty())
+                .andExpect(jsonPath("amount").value("13"))
+                .andExpect(jsonPath("description").value("test"));
+
         //Then
-        List<PostingModel> postingModels = new ArrayList<>(List.of
-                (new PostingModel("test", 13)));
-        Assertions.assertThat(postingModels)
-                .containsExactly(new PostingModel("test", 13));
+
     }
 
 
