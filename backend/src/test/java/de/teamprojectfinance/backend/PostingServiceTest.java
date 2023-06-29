@@ -12,8 +12,8 @@ class PostingServiceTest {
 
     PostingRepo postingRepo = mock(PostingRepo.class);
 
-    RandomId randomId = mock(RandomId.class);
-    PostingService postingService = new PostingService(postingRepo, randomId);
+    IdService idService = mock(IdService.class);
+    PostingService postingService = new PostingService(postingRepo, idService);
 
     @Test
     void WhenPostindAdded_ThenReturnPoting(){
@@ -26,7 +26,7 @@ class PostingServiceTest {
         //When
         Mockito.when(postingRepo.addPosting(givenTestModel))
                 .thenReturn(givenTestModel);
-        Mockito.when(randomId.createRandomId())
+        Mockito.when(idService.createRandomId())
                 .thenReturn("01A");
 
         PostingModel actualModel = postingService.addPosting(givenTestModel);
@@ -34,7 +34,7 @@ class PostingServiceTest {
        assertEquals(givenTestModel1,actualModel );
        verify(postingRepo).addPosting(givenTestModel);
 
-       verify(randomId).createRandomId();
+       verify(idService).createRandomId();
 
     }
 
