@@ -7,12 +7,15 @@ public class PostingService {
 
     private final PostingRepo postingRepo;
 
-    public PostingService(PostingRepo postingRepo){
+    private final RandomId randomId;
+
+    public PostingService(PostingRepo postingRepo, RandomId randomId){
         this.postingRepo = postingRepo;
+        this.randomId = randomId;
     }
 
     public PostingModel addPosting(PostingModel postingModel) {
-        postingModel.setId(RandomId.createRandomId());
+        postingModel.setId(randomId.createRandomId());
         return postingRepo.addPosting(postingModel);
     }
 
