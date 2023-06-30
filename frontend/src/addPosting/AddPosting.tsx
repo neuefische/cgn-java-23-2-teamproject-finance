@@ -2,9 +2,6 @@ import {FormEvent, useState} from "react";
 import axios from "axios";
 
 
-
-
-
 export default function AddPosting(){
 
     const[description, setDescription]= useState<string>("")
@@ -22,8 +19,6 @@ export default function AddPosting(){
         }).catch(console.error)
         setAmount(0)
         setDescription("")
-
-
 
     }
     return(

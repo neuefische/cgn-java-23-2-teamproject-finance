@@ -4,17 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class PostingModel {
-
-    private String id;
+@AllArgsConstructor
+public class NewPostingModel {
 
     private String description;
 
     private int amount;
-
-
 }

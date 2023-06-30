@@ -15,27 +15,28 @@ class PostingServiceTest {
     IdService idService = mock(IdService.class);
     PostingService postingService = new PostingService(postingRepo, idService);
 
-    @Test
-    void whenPostindAdded_ThenReturnPosting() {
-        //Gvien
+ @Test
+ void whenPostindAdded_ThenReturnPosting() {
+     //Gvien
 
-        PostingModel givenTestModel = new PostingModel("test", 23);
-        PostingModel givenTestModel1 = new PostingModel("test", 23);
-        givenTestModel1.setId("01A");
-
-        //When
-        Mockito.when(postingRepo.addPosting(givenTestModel))
-                .thenReturn(givenTestModel);
-        Mockito.when(idService.createRandomId())
-                .thenReturn("01A");
-
-        PostingModel actualModel = postingService.addPosting(givenTestModel);
-        //Then
-        verify(postingRepo).addPosting(givenTestModel);
-        verify(idService).createRandomId();
-        assertEquals(givenTestModel1, actualModel);
+     NewPostingModel givenTestModel = new NewPostingModel("test", 23);
+     PostingModel givenTestModelRepo = new PostingModel("01A", "test", 23);
+     PostingModel givenTestModel1 = new PostingModel("01A", "test", 23);
 
 
-    }
+     //When
+     Mockito.when(postingRepo.addPosting(givenTestModelRepo))
+             .thenReturn(givenTestModelRepo);
+     Mockito.when(idService.createRandomId())
+             .thenReturn("01A");
+
+     PostingModel actualModel = postingService.addPosting(givenTestModel);
+     //Then
+     verify(postingRepo).addPosting(givenTestModelRepo);
+     verify(idService).createRandomId();
+     assertEquals(givenTestModel1, actualModel);
+
+
+ }
 
 }

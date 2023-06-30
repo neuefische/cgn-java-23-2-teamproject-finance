@@ -14,9 +14,8 @@ public class PostingService {
         this.idService = idService;
     }
 
-    public PostingModel addPosting(PostingModel postingModel) {
-        postingModel.setId(idService.createRandomId());
-        return postingRepo.addPosting(postingModel);
+    public PostingModel addPosting(NewPostingModel newPostingModel) {
+        return postingRepo.addPosting(new PostingModel(idService.createRandomId(),newPostingModel.getDescription(), newPostingModel.getAmount()));
     }
 
 

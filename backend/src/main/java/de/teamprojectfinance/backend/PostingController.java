@@ -12,12 +12,12 @@ public class PostingController {
 
     private final PostingService postingService;
 
-     PostingController(PostingService postingService){
-         this.postingService = postingService;
-     }
+    PostingController(PostingService postingService) {
+        this.postingService = postingService;
+    }
 
     @PostMapping
-    public PostingModel addPosting(@RequestBody PostingModel postingModel){
-         return postingService.addPosting(postingModel);
+    public PostingModel addPosting(@RequestBody NewPostingModel newPostingModel) {
+        return postingService.addPosting(newPostingModel);
     }
 }
