@@ -29,14 +29,16 @@ class PostingIntegrationTest {
                                 .content("""
                                         {
                                             "description": "test",
-                                            "amount": "13"
+                                            "amount": "13",
+                                            "category": "INCOME"
                                         }
                                         """
                                 ))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("id").isNotEmpty())
                 .andExpect(jsonPath("amount").value("13"))
-                .andExpect(jsonPath("description").value("test"));
+                .andExpect(jsonPath("description").value("test"))
+                .andExpect(jsonPath("category").value("INCOME"));
 
         //Then
 
