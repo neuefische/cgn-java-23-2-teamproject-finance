@@ -1,33 +1,25 @@
-import {FormEvent, useState} from "react";
-import axios from "axios";
+import {FormEvent} from "react";
 
 
-export default function AddPosting(){
+type Props = {
+    submit: (event: FormEvent<HTMLFormElement>) => void,
+    setDescription: (event: string) => void,
+    setAmount: (number: number) => void,
+    description: string,
+    amount: number,
+}
 
-    const[description, setDescription]= useState<string>("")
-    const[amount, setAmount] = useState<number>()
+export default function AddPosting(props: Props){
 
-    function handleSubmit(event: FormEvent<HTMLFormElement>){
-        event.preventDefault()
-        axios.post(
-            "/api/finance/",{
-                "description": description,
-                "amount": amount
-            }
-        ).then(response =>{
-            console.log(response.data)
-        }).catch(console.error)
-        setAmount(0)
-        setDescription("")
 
-    }
+
     return(
         <>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={props.submit}>
 
 
-                <input type={"text"} onChange={event => setDescription(event.target.value)} value={description} placeholder={"description"}/>
-                <input type={"number"} onChange={event => setAmount(parseInt(event.target.value))} value={amount} placeholder={"amount"}/>
+                <input type={"text"} onChange={event => props.setDescription(event.target.value)} value={props.description} placeholder={"description"}/>
+                <input type={"number"} onChange={event => props.setAmount(parseInt(event.target.value))} value={props.amount} placeholder={"amount"}/>
                 <button>Add Posting</button>
 
 
