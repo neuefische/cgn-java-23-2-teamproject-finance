@@ -21,6 +21,7 @@ export default function App() {
         ).then(() => {
                 setAmount(0)
                 setDescription("")
+            setCategory("INCOME")
             }
         ).catch(console.error)
 
