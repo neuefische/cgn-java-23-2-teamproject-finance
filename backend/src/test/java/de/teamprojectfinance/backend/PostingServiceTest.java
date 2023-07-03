@@ -19,9 +19,9 @@ class PostingServiceTest {
  void whenPostindAdded_ThenReturnPosting() {
      //Gvien
 
-     NewPostingModel givenTestModel = new NewPostingModel("test", 23);
-     PostingModel givenTestModelRepo = new PostingModel("01A", "test", 23);
-     PostingModel givenTestModel1 = new PostingModel("01A", "test", 23);
+     NewPostingModel givenTestModel = new NewPostingModel("test", 23, PostingCategory.INCOME);
+     PostingModel givenTestModelRepo = new PostingModel("01A", "test", 23, PostingCategory.INCOME);
+     PostingModel givenTestModel1 = new PostingModel("01A", "test", 23, PostingCategory.INCOME);
 
 
      //When
@@ -38,5 +38,6 @@ class PostingServiceTest {
 
 
  }
+
 
 }

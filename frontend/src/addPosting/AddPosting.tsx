@@ -1,4 +1,4 @@
-import {FormEvent} from "react";
+import {ChangeEvent, FormEvent} from "react";
 
 
 type Props = {
@@ -7,9 +7,17 @@ type Props = {
     setAmount: (number: number) => void,
     description: string,
     amount: number,
+    setCategory: (event: "INCOME" | "EXPENSE") => void,
+    category: "INCOME" | "EXPENSE",
 }
 
 export default function AddPosting(props: Props) {
+
+
+    const handleOptionChange = (event: ChangeEvent<HTMLInputElement>) => {
+        props.setCategory(event.target.value as "INCOME" | "EXPENSE");
+        console.log(event.target.value);
+    };
 
 
     return (
@@ -21,6 +29,21 @@ export default function AddPosting(props: Props) {
                        value={props.description} placeholder={"description"}/>
                 <input type={"number"} onChange={event => props.setAmount(parseInt(event.target.value))}
                        value={props.amount} placeholder={"amount"}/>
+
+                <input
+                    type="radio"
+                    value="INCOME"
+                    checked={props.category === 'INCOME'}
+                    onChange={handleOptionChange}
+                />INCOME
+                <input
+                    type="radio"
+                    value="EXPENSE"
+                    checked={props.category === 'EXPENSE'}
+                    onChange={handleOptionChange}
+                />EXPENSE
+
+
                 <button>Add Posting</button>
 
 

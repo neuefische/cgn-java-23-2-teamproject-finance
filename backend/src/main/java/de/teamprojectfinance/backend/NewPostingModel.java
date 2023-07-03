@@ -12,4 +12,7 @@ public class NewPostingModel {
     private String description;
 
     private int amount;
+
+    private PostingCategory category;
+
 }

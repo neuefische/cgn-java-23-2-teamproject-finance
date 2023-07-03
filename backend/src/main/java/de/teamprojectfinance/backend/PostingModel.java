@@ -16,5 +16,7 @@ public class PostingModel {
 
     private int amount;
 
+    private PostingCategory category;
+
 
 }
