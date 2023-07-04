@@ -77,7 +77,7 @@ jobs:
           push: true
           #Set dockerhub project (replace "bartfastiel/java-capstone-project.de-example-app")
           tags: kajochin/delta
-          context: ./backend
+          context: .
 
   deploy:
     runs-on: ubuntu-latest
