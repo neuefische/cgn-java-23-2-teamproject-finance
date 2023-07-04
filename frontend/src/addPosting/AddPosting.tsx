@@ -26,9 +26,9 @@ export default function AddPosting(props: Props) {
 
 
                 <input type={"text"} onChange={event => props.setDescription(event.target.value)}
-                       value={props.description} placeholder={"description"}/>
+                       value={props.description} placeholder={"Beschreibung"}/>
                 <input type={"number"} onChange={event => props.setAmount(parseInt(event.target.value))}
-                       value={props.amount} placeholder={"amount"}/>
+                       value={props.amount} placeholder={"Betrag"}/>
 
                 <input
                     type="radio"
@@ -44,7 +44,7 @@ export default function AddPosting(props: Props) {
                 />EXPENSE
 
 
-                <button>Add Posting</button>
+                <button>Buchung Anlegen</button>
 
 
             </form>

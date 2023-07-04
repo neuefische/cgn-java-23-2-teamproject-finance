@@ -48,6 +48,10 @@ export default function App() {
             <PostingCollection postings={postings}/>
             <AddPosting submit={handleSubmit} setAmount={setAmount} setDescription={setDescription} amount={amount}
                         description={description} category={category} setCategory={setCategory}/>
+
+
+
+
         </>
 
     )
