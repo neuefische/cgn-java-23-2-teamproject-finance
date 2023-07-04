@@ -76,7 +76,7 @@ jobs:
         with:
           push: true
           #Set dockerhub project (replace "bartfastiel/java-capstone-project.de-example-app")
-          tags: kajochin/cgn-java-23-2-teamproject-finance:latest
+          tags: neuefische/cgn-java-23-2-teamproject-finance
           context: ./backend
 
   deploy:
@@ -96,7 +96,7 @@ jobs:
           script: |
             docker stop delta
             docker rm delta
-            docker run --pull=always --name delta --network capstones --ip 10.0.1.4 --restart always --detach kajochin/cgn-java-23-2-teamproject-finance:latest
+            docker run --pull=always --name delta --network capstones --ip 10.0.1.4 --restart always --detach neuefische/cgn-java-23-2-teamproject-finance:latest
             sleep 15s
             docker logs delta
 
