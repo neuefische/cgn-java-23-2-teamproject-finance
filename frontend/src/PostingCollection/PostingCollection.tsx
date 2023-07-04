@@ -10,7 +10,7 @@ export default function PostingCollection(props: Props){
         <>
             <h2>Buchungsliste</h2>
             {
-                props.postings.map((post, )=><PostingCard posting={post} key={post.description}/>)
+                props.postings.map((post )=><PostingCard posting={post} key={post.id}/>)
             }
         </>
     )
