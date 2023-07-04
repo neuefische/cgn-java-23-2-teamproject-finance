@@ -1,10 +1,9 @@
 package de.teamprojectfinance.backend;
 
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/finance/")
@@ -15,6 +14,12 @@ public class PostingController {
     PostingController(PostingService postingService) {
         this.postingService = postingService;
     }
+
+    @GetMapping
+    List<PostingModel> getAllPostings(){
+        return postingService.getAllPostings();
+    }
+
 
     @PostMapping
     public PostingModel addPosting(@RequestBody NewPostingModel newPostingModel) {

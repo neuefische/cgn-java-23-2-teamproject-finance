@@ -18,4 +18,8 @@ public class PostingRepo {
         this.postingModels.add(postingModel);
         return postingModel;
     }
+
+    public List<PostingModel> getAllPostings() {
+        return postingModels;
+    }
 }
