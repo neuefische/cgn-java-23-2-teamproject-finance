@@ -20,7 +20,7 @@ export default function App() {
             .catch(console.error)
     }
     useEffect(loadPostings,[])
-
+    useEffect(loadPostings,[postings])
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
 
