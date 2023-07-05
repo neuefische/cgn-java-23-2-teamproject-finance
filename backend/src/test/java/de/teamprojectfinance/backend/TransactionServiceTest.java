@@ -11,20 +11,20 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 
-class PostingServiceTest {
+class TransactionServiceTest {
 
-    PostingRepo postingRepo = mock(PostingRepo.class);
+    TransactionRepo postingRepo = mock(TransactionRepo.class);
 
     IdService idService = mock(IdService.class);
-    PostingService postingService = new PostingService(postingRepo, idService);
+    TransactionService postingService = new TransactionService(postingRepo, idService);
 
  @Test
  void whenPostindAdded_ThenReturnPosting() {
      //Gvien
 
-     NewPostingModel givenTestModel = new NewPostingModel("test", 23, PostingCategory.INCOME);
-     PostingModel givenTestModelRepo = new PostingModel("01A", "test", 23, PostingCategory.INCOME);
-     PostingModel givenTestModel1 = new PostingModel("01A", "test", 23, PostingCategory.INCOME);
+     DtoTransaction givenTestModel = new DtoTransaction("test", 23, TransactionCategory.INCOME);
+     Transaction givenTestModelRepo = new Transaction("01A", "test", 23, TransactionCategory.INCOME);
+     Transaction givenTestModel1 = new Transaction("01A", "test", 23, TransactionCategory.INCOME);
 
 
      //When
@@ -33,7 +33,7 @@ class PostingServiceTest {
      Mockito.when(idService.createRandomId())
              .thenReturn("01A");
 
-     PostingModel actualModel = postingService.addPosting(givenTestModel);
+     Transaction actualModel = postingService.addPosting(givenTestModel);
      //Then
      verify(postingRepo).addPosting(givenTestModelRepo);
      verify(idService).createRandomId();
@@ -44,13 +44,13 @@ class PostingServiceTest {
 @Test
     void whenListNotEmpty_ThenReturnList(){
      // Given
-    PostingModel givenTestModelRepo = new PostingModel("2B", "test2", 23, PostingCategory.INCOME);
-    PostingModel givenTestModel1 = new PostingModel("3C", "test3", 23, PostingCategory.EXPENSE);
-    List<PostingModel> givenTestPostigModel = new ArrayList<>(List.of(givenTestModel1,givenTestModelRepo));
+    Transaction givenTestModelRepo = new Transaction("2B", "test2", 23, TransactionCategory.INCOME);
+    Transaction givenTestModel1 = new Transaction("3C", "test3", 23, TransactionCategory.EXPENSE);
+    List<Transaction> givenTestPostigModel = new ArrayList<>(List.of(givenTestModel1,givenTestModelRepo));
      // When
         Mockito.when(postingRepo.getAllPostings())
                 .thenReturn(givenTestPostigModel);
-        List<PostingModel> actualModelList = postingService.getAllPostings();
+        List<Transaction> actualModelList = postingService.getAllPostings();
      // Then
     verify(postingRepo).getAllPostings();
     assertEquals(givenTestPostigModel,actualModelList);

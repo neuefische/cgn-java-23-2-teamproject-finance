@@ -1,6 +1,6 @@
 package de.teamprojectfinance.backend;
 
-public enum PostingCategory {
+public enum TransactionCategory {
 
     INCOME,
     EXPENSE,

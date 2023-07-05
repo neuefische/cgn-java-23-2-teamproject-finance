@@ -7,22 +7,22 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/finance/")
-public class PostingController {
+public class TransactionController {
 
-    private final PostingService postingService;
+    private final TransactionService postingService;
 
-    PostingController(PostingService postingService) {
+    TransactionController(TransactionService postingService) {
         this.postingService = postingService;
     }
 
     @GetMapping
-    List<PostingModel> getAllPostings(){
+    List<Transaction> getAllPostings(){
         return postingService.getAllPostings();
     }
 
 
     @PostMapping
-    public PostingModel addPosting(@RequestBody NewPostingModel newPostingModel) {
+    public Transaction addPosting(@RequestBody DtoTransaction newPostingModel) {
         return postingService.addPosting(newPostingModel);
     }
 }

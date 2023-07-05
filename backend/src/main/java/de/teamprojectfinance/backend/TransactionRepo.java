@@ -6,20 +6,20 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class PostingRepo {
+public class TransactionRepo {
 
-    private final List<PostingModel> postingModels;
+    private final List<Transaction> postingModels;
 
-    public PostingRepo(List<PostingModel> postingModels){
+    public TransactionRepo(List<Transaction> postingModels){
         this.postingModels = postingModels;
     }
 
-    public PostingModel addPosting(PostingModel postingModel) {
+    public Transaction addPosting(Transaction postingModel) {
         this.postingModels.add(postingModel);
         return postingModel;
     }
 
-    public List<PostingModel> getAllPostings() {
+    public List<Transaction> getAllPostings() {
         return postingModels;
     }
 }
