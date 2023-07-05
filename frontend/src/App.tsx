@@ -98,7 +98,18 @@ export default function App() {
             <AddTransaction submit={handleSubmit} setAmount={setAmount} setDescription={setDescription} amount={amount}
                             description={description} category={category} setCategory={setCategory}/>
 
-
+            {updateTransactionVisibility && (
+                <UpdateTransaction
+                    submit={handleUpdate}
+                    setDescription={setDescription}
+                    setAmount={setAmount}
+                    description={description}
+                    amount={amount}
+                    setCategory={setCategory}
+                    category={category}
+                    cancel={cancelUpdateComponent}
+                />
+            )}
 
 
         </>
