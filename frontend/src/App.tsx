@@ -1,8 +1,8 @@
-import AddPosting from "./addPosting/AddPosting.tsx";
+import AddTransaction from "./addTransaction/AddTransaction.tsx";
 import {FormEvent, useEffect, useState} from "react";
 import axios from "axios";
-import {Posting} from "./model/model.ts";
-import PostingCollection from "./PostingCollection/PostingCollection.tsx";
+import {Transaction} from "./model/model.ts";
+import TransactionCollection from "./TransactionCollection/TransactionCollection.tsx";
 
 
 export default function App() {
@@ -11,16 +11,16 @@ export default function App() {
     const [description, setDescription] = useState<string>("")
     const [amount, setAmount] = useState<number>(0)
     const [category, setCategory] = useState<"INCOME" | "EXPENSE">("INCOME");
-    const [postings,setPostings] = useState<Posting[]>([])
+    const [transaction,setTransaction] = useState<Transaction[]>([])
 
-    function loadPostings(){
+    function loadTransactions(){
         axios.get(
             "/api/finance/")
-            .then(response=>{setPostings(response.data)})
+            .then(response=>{setTransaction(response.data)})
             .catch(console.error)
     }
-    useEffect(loadPostings,[])
-    useEffect(loadPostings,[postings])
+    useEffect(loadTransactions,[])
+    useEffect(loadTransactions,[transaction])
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
 
@@ -45,9 +45,9 @@ export default function App() {
         <>
             <h1>Finanzen virtuelles Tierheim</h1>
 
-            <PostingCollection postings={postings}/>
-            <AddPosting submit={handleSubmit} setAmount={setAmount} setDescription={setDescription} amount={amount}
-                        description={description} category={category} setCategory={setCategory}/>
+            <TransactionCollection transaction={transaction}/>
+            <AddTransaction submit={handleSubmit} setAmount={setAmount} setDescription={setDescription} amount={amount}
+                            description={description} category={category} setCategory={setCategory}/>
 
 
 

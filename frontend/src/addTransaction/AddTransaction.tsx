@@ -11,7 +11,7 @@ type Props = {
     category: "INCOME" | "EXPENSE",
 }
 
-export default function AddPosting(props: Props) {
+export default function AddTransaction(props: Props) {
 
 
     const handleOptionChange = (event: ChangeEvent<HTMLInputElement>) => {
