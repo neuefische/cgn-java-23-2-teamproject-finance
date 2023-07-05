@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewPostingModel {
+public class DtoTransaction {
 
     private String description;
 
     private int amount;
 
-    private PostingCategory category;
+    private TransactionCategory category;
 
 }

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostingModel {
+public class Transaction {
 
     private String id;
 
@@ -16,7 +16,7 @@ public class PostingModel {
 
     private int amount;
 
-    private PostingCategory category;
+    private TransactionCategory category;
 
 
 }
