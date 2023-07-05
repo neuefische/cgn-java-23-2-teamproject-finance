@@ -2,6 +2,8 @@ package de.teamprojectfinance.backend;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostingService {
 
@@ -19,4 +21,7 @@ public class PostingService {
     }
 
 
+    public List<PostingModel> getAllPostings() {
+        return postingRepo.getAllPostings();
+    }
 }
