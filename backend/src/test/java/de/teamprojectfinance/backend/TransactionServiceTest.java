@@ -13,13 +13,13 @@ import static org.mockito.Mockito.verify;
 
 class TransactionServiceTest {
 
-    TransactionRepo postingRepo = mock(TransactionRepo.class);
+    TransactionRepo transactionRepo = mock(TransactionRepo.class);
 
     IdService idService = mock(IdService.class);
-    TransactionService postingService = new TransactionService(postingRepo, idService);
+    TransactionService transactionService = new TransactionService(transactionRepo, idService);
 
  @Test
- void whenPostindAdded_ThenReturnPosting() {
+ void whenTransactionAdded_ThenReturnTransaction() {
      //Gvien
 
      DtoTransaction givenTestModel = new DtoTransaction("test", 23, TransactionCategory.INCOME);
@@ -28,14 +28,14 @@ class TransactionServiceTest {
 
 
      //When
-     Mockito.when(postingRepo.addPosting(givenTestModelRepo))
+     Mockito.when(transactionRepo.addPosting(givenTestModelRepo))
              .thenReturn(givenTestModelRepo);
      Mockito.when(idService.createRandomId())
              .thenReturn("01A");
 
-     Transaction actualModel = postingService.addPosting(givenTestModel);
+     Transaction actualModel = transactionService.addTransaction(givenTestModel);
      //Then
-     verify(postingRepo).addPosting(givenTestModelRepo);
+     verify(transactionRepo).addPosting(givenTestModelRepo);
      verify(idService).createRandomId();
      assertEquals(givenTestModel1, actualModel);
 
@@ -48,11 +48,11 @@ class TransactionServiceTest {
     Transaction givenTestModel1 = new Transaction("3C", "test3", 23, TransactionCategory.EXPENSE);
     List<Transaction> givenTestPostigModel = new ArrayList<>(List.of(givenTestModel1,givenTestModelRepo));
      // When
-        Mockito.when(postingRepo.getAllPostings())
+        Mockito.when(transactionRepo.getAllTransactions())
                 .thenReturn(givenTestPostigModel);
-        List<Transaction> actualModelList = postingService.getAllPostings();
+        List<Transaction> actualModelList = transactionService.getAllTransactions();
      // Then
-    verify(postingRepo).getAllPostings();
+    verify(transactionRepo).getAllTransactions();
     assertEquals(givenTestPostigModel,actualModelList);
 
 }

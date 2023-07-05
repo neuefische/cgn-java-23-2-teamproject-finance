@@ -9,20 +9,20 @@ import java.util.List;
 @RequestMapping("/api/finance/")
 public class TransactionController {
 
-    private final TransactionService postingService;
+    private final TransactionService transactionService;
 
-    TransactionController(TransactionService postingService) {
-        this.postingService = postingService;
+    TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
     }
 
     @GetMapping
-    List<Transaction> getAllPostings(){
-        return postingService.getAllPostings();
+    List<Transaction> getAllTransactions(){
+        return transactionService.getAllTransactions();
     }
 
 
     @PostMapping
-    public Transaction addPosting(@RequestBody DtoTransaction newPostingModel) {
-        return postingService.addPosting(newPostingModel);
+    public Transaction addTransaction(@RequestBody DtoTransaction dtoTransaction) {
+        return transactionService.addTransaction(dtoTransaction);
     }
 }

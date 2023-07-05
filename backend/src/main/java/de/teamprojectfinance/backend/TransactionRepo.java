@@ -19,7 +19,7 @@ public class TransactionRepo {
         return postingModel;
     }
 
-    public List<Transaction> getAllPostings() {
+    public List<Transaction> getAllTransactions() {
         return postingModels;
     }
 }
