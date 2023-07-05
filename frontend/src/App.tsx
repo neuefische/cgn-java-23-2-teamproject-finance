@@ -11,16 +11,16 @@ export default function App() {
     const [description, setDescription] = useState<string>("")
     const [amount, setAmount] = useState<number>(0)
     const [category, setCategory] = useState<"INCOME" | "EXPENSE">("INCOME");
-    const [transaction,setTransaction] = useState<Transaction[]>([])
+    const [transactions,setTransactions] = useState<Transaction[]>([])
 
     function loadTransactions(){
         axios.get(
             "/api/finance/")
-            .then(response=>{setTransaction(response.data)})
             .catch(console.error)
+            .then(response=>{setTransactions(response?.data)})
+
     }
-    useEffect(loadTransactions,[])
-    useEffect(loadTransactions,[transaction])
+    useEffect(loadTransactions,[transactions])
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
 
@@ -45,7 +45,7 @@ export default function App() {
         <>
             <h1>Finanzen virtuelles Tierheim</h1>
 
-            <TransactionCollection transaction={transaction}/>
+            <TransactionCollection transaction={transactions}/>
             <AddTransaction submit={handleSubmit} setAmount={setAmount} setDescription={setDescription} amount={amount}
                             description={description} category={category} setCategory={setCategory}/>
 

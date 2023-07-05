@@ -18,7 +18,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TransactionIntegrationTest {
     @Autowired
     MockMvc mockMvc;
-@DirtiesContext
+
+    @DirtiesContext
     @Test
     void WhenAddingPosting_ThenReturnPosting() throws Exception {
         //Given
@@ -35,30 +36,33 @@ class TransactionIntegrationTest {
                                         }
                                         """
                                 ))
+
+                //Then
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("id").isNotEmpty())
                 .andExpect(jsonPath("amount").value("13"))
                 .andExpect(jsonPath("description").value("test"))
                 .andExpect(jsonPath("category").value("INCOME"));
 
-        //Then
 
     }
 
-  @DirtiesContext
+    @DirtiesContext
     @Test
     void whenListEmpty_ThenReturnEmptyList() throws Exception {
         // GIVEN
         // WHEN
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/finance/")
+                        MockMvcRequestBuilders.get("/api/finance/")
 
-        )
+                )
+
+        // THEN
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json("""
-                                            []
-                                            """));
-        // THEN
+                        []
+                        """));
+
     }
 
 

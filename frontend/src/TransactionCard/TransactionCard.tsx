@@ -1,18 +1,16 @@
 import {Transaction} from "../model/model.ts";
 
-type Props={
+type Props = {
     transaction: Transaction,
-    }
-export default function TransactionCard(props: Props){
+}
+export default function TransactionCard(props: Props) {
 
 
-
-    return(
+    return (
         <>
-
-            <label> Beschreibung: {props.transaction.description}</label>
-            <label> Betrag: {props.transaction.amount}</label>
-            <label> Kategorie: (Income/Expense): {props.transaction.category}</label>
+            <h3> Beschreibung: {props.transaction.description}</h3>
+            <p> Betrag: {props.transaction.amount}</p>
+            <p> Kategorie: (Income/Expense): {props.transaction.category}</p>
         </>
     )
 }
