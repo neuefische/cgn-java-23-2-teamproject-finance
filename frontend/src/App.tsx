@@ -61,7 +61,7 @@ export default function App() {
             setAmount(selectedTransaction.amount)
             setCategory(selectedTransaction.category)
             setId(selectedTransaction.id)
-            setUpdateTransactionVisibility(!updateTransactionVisibility);
+            setUpdateTransactionVisibility(true);
         } else {
             throw DOMException
         }
@@ -70,22 +70,22 @@ export default function App() {
     }
 
     function cancelUpdateComponent() {
-        setUpdateTransactionVisibility(!updateTransactionVisibility);
+        setUpdateTransactionVisibility(false);
     }
 
     function handleUpdate(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         axios.put(
-            "/api/finance", {
-                "id": id,
+            "/api/finance/"+id, {
                 "description": description,
                 "amount": amount,
                 "category": category
-            }).then(() => {
+            } as Transaction).then(() => {
                 setId("")
                 setAmount(0)
                 setDescription("")
                 setCategory("INCOME")
+                setUpdateTransactionVisibility(false)
             }
         ).then (()=>loadTransactions())
 

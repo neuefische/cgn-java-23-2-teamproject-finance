@@ -28,14 +28,14 @@ class TransactionServiceTest {
 
 
         //When
-        Mockito.when(transactionRepo.addPosting(givenTestModelRepo))
+        Mockito.when(transactionRepo.save(givenTestModelRepo))
                 .thenReturn(givenTestModelRepo);
         Mockito.when(idService.createRandomId())
                 .thenReturn("01A");
 
         Transaction actualModel = transactionService.addTransaction(givenTestModel);
         //Then
-        verify(transactionRepo).addPosting(givenTestModelRepo);
+        verify(transactionRepo).save(givenTestModelRepo);
         verify(idService).createRandomId();
         assertEquals(givenTestModel1, actualModel);
 
@@ -54,11 +54,11 @@ class TransactionServiceTest {
 
 
         // When
-        Mockito.when(transactionRepo.getAllTransactions())
+        Mockito.when(transactionRepo.findAll())
                 .thenReturn(transactions);
         List<Transaction> actualModelList = transactionService.getAllTransactions();
         // Then
-        verify(transactionRepo).getAllTransactions();
+        verify(transactionRepo).findAll();
         assertEquals(transactions, actualModelList);
 
     }
