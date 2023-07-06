@@ -96,7 +96,7 @@ jobs:
           script: |
             docker stop delta
             docker rm delta
-            docker run --pull=always --name delta --network capstones --ip 10.0.1.4 --restart always --detach kajochin/delta
+            docker run --pull=always -e MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} --name delta --network capstones --ip 10.0.1.4 --restart always --detach kajochin/delta
             sleep 15s
             docker logs delta
 
