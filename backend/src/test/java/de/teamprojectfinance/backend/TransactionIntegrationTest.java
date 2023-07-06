@@ -19,6 +19,7 @@ class TransactionIntegrationTest {
     @Autowired
     MockMvc mockMvc;
 
+
     @DirtiesContext
     @Test
     void WhenAddingPosting_ThenReturnPosting() throws Exception {
@@ -63,6 +64,32 @@ class TransactionIntegrationTest {
                         []
                         """));
 
+    }
+
+    @DirtiesContext
+    @Test
+    void whenUpdateATransactionReturnUpdatedTransaction() throws Exception{
+        //Given
+
+        String id = "0123";
+        //When
+        mockMvc.perform(
+              MockMvcRequestBuilders.put("/api/finance/"+id)
+         .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                                        {
+                                            "description": "test",
+                                            "amount": "13",
+                                            "category": "INCOME"
+                                        }
+                                        """
+                ))
+        //Then
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("id").value("0123"))
+                .andExpect(jsonPath("amount").value("13"))
+                .andExpect(jsonPath("description").value("test"))
+                .andExpect(jsonPath("category").value("INCOME"));
     }
 
 

@@ -3,10 +3,11 @@ package de.teamprojectfinance.backend;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -61,5 +62,21 @@ class TransactionServiceTest {
         verify(transactionRepo).findAll();
         assertEquals(transactions, actualModelList);
 
+    }
+
+    @Test
+    void whenUpdateATransactionReturnUpdatedTransaction(){
+        //Given
+        DtoTransaction dtoTransaction = new DtoTransaction("test", 42, TransactionCategory.INCOME);
+        String id = "0123";
+        //When
+
+        Mockito.when(transactionRepo.save(new Transaction(id, dtoTransaction.getDescription(), dtoTransaction.getAmount(), dtoTransaction.getCategory())))
+                .thenReturn(new Transaction("0123", "test", 13, TransactionCategory.INCOME));
+        Transaction expected = new Transaction("0123", "test", 13, TransactionCategory.INCOME);
+        Transaction actual = transactionService.updateTransaction(dtoTransaction, id);
+        //Then
+        verify(transactionRepo).save(any());
+        assertEquals(expected, actual);
     }
 }
