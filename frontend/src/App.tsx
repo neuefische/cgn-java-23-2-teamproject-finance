@@ -46,8 +46,10 @@ export default function App() {
                 setAmount(0)
                 setDescription("")
                 setCategory("INCOME")
+
             }
         ).catch(console.error)
+            .then(loadTransactions)
     }
 
     function initializeUpdateComponent(transactionId: string) {
