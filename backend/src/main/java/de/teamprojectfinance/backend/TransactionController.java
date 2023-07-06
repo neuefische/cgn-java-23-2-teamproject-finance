@@ -25,4 +25,12 @@ public class TransactionController {
     public Transaction addTransaction(@RequestBody DtoTransaction dtoTransaction) {
         return transactionService.addTransaction(dtoTransaction);
     }
+
+    @PutMapping
+    public Transaction updateTransaction(@RequestBody Transaction transaction){
+
+        return transactionService.
+
+    }
+
 }
