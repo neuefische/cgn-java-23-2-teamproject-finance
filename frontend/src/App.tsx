@@ -3,7 +3,7 @@ import {FormEvent, useEffect, useState} from "react";
 import axios from "axios";
 import {Transaction} from "./model/model.ts";
 import TransactionCollection from "./TransactionCollection/TransactionCollection.tsx";
-import UpdateTransaction from "./UpdateTransaction/UpdateTransaction.tsx";
+
 
 
 export default function App() {
@@ -96,12 +96,22 @@ export default function App() {
         <>
             <h1>Finanzen virtuelles Tierheim</h1>
 
-            <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
-            <AddTransaction submit={handleSubmit} setAmount={setAmount} setDescription={setDescription} amount={amount}
-                            description={description} category={category} setCategory={setCategory}/>
+          <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
+
+
+
+            <AddTransaction submit={handleSubmit}
+                            setAmount={setAmount}
+                            setDescription={setDescription}
+                            amount={amount}
+                            description={description}
+                            category={category}
+                            setCategory={setCategory}
+                            cancel={cancelUpdateComponent}
+            />
 
             {updateTransactionVisibility && (
-                <UpdateTransaction
+                <AddTransaction
                     submit={handleUpdate}
                     setDescription={setSelectedDescription}
                     setAmount={setSelectedAmount}

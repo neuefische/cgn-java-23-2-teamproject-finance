@@ -9,12 +9,13 @@ type Props = {
     amount: number,
     setCategory: (event: "INCOME" | "EXPENSE") => void,
     category: "INCOME" | "EXPENSE",
+    cancel: () => void,
 }
 
 export default function AddTransaction(props: Props) {
 
 
-    const handleOptionChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleCategoryChange = (event: ChangeEvent<HTMLInputElement>) => {
         props.setCategory(event.target.value as "INCOME" | "EXPENSE");
         console.log(event.target.value);
     };
@@ -34,17 +35,20 @@ export default function AddTransaction(props: Props) {
                     type="radio"
                     value="INCOME"
                     checked={props.category === 'INCOME'}
-                    onChange={handleOptionChange}
+                    onChange={handleCategoryChange}
                 />INCOME
                 <input
                     type="radio"
                     value="EXPENSE"
                     checked={props.category === 'EXPENSE'}
-                    onChange={handleOptionChange}
+                    onChange={handleCategoryChange}
                 />EXPENSE
 
 
-                <button>Buchung Anlegen</button>
+
+
+                <button>Speichern</button>
+                <button onClick={props.cancel}>Abbrechen</button>
 
 
             </form>
