@@ -1,4 +1,4 @@
-import {ChangeEvent, FormEvent} from "react";
+import React, {ChangeEvent, FormEvent} from "react";
 
 
 type Props = {
@@ -10,9 +10,11 @@ type Props = {
     setCategory: (event: "INCOME" | "EXPENSE") => void,
     category: "INCOME" | "EXPENSE",
     cancel: () => void,
+    delete: (event: React.MouseEvent<HTMLButtonElement>) => void,
+    visibilityDeleteButton: boolean
 }
 
-export default function AddTransaction(props: Props) {
+export default function TransactionAddUpdateDelete(props: Props) {
 
 
     const handleCategoryChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -49,8 +51,9 @@ export default function AddTransaction(props: Props) {
 
                 <button>Speichern</button>
                 <button onClick={props.cancel}>Abbrechen</button>
-
-
+                {props.visibilityDeleteButton&& (
+                <button onClick={props.delete}>Löschen</button>
+                    )}
             </form>
 
 

@@ -10,14 +10,15 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 class TransactionIntegrationTest {
     @Autowired
     MockMvc mockMvc;
+    @Autowired
+    TransactionService transactionService;
 
 
     @DirtiesContext
@@ -92,5 +93,22 @@ class TransactionIntegrationTest {
                 .andExpect(jsonPath("category").value("INCOME"));
     }
 
+    @DirtiesContext
+    @Test
+    void WhenDeleteATransactionThenReturnEmptyList() throws Exception{
+        //Given
+       Transaction givenTransaction = transactionService.addTransaction(new DtoTransaction( "test", 1234, TransactionCategory.INCOME));
 
+        //When
+        mockMvc.perform(
+                MockMvcRequestBuilders.delete("/api/finance/"+givenTransaction.getId())
+        ).andExpect(status().isOk());
+        //Then
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/api/finance/")
+        ).andExpect(status().isOk())
+                .andExpect(content().json("""
+                    []
+                """));
+    }
 }
