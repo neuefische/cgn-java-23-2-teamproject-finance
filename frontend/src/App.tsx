@@ -15,9 +15,9 @@ export default function App() {
     const [id, setId] = useState<string>("")
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [updateTransactionVisibility, setUpdateTransactionVisibility] = useState(false);
-    //  const [selectedDescription, setSelectedDescription] = useState<string>("")
-    //const [selectedAmount, setSelectedAmount] = useState<number>(0)
-    //const [selectedCategory, setSelectedCategory] = useState<"INCOME"|"EXEPNSE">()
+    const [selectedDescription, setSelectedDescription] = useState<string>("")
+    const [selectedAmount, setSelectedAmount] = useState<number>(0)
+    const [selectedCategory, setSelectedCategory] = useState<"INCOME"|"EXPENSE">("INCOME")
 
 
     function loadTransactions() {
@@ -57,9 +57,9 @@ export default function App() {
         const selectedTransaction: Transaction | undefined = transactions.find(item => item.id === transactionId)
 
         if (selectedTransaction !== undefined) {
-            setDescription(selectedTransaction.description)
-            setAmount(selectedTransaction.amount)
-            setCategory(selectedTransaction.category)
+            setSelectedDescription(selectedTransaction.description)
+            setSelectedAmount(selectedTransaction.amount)
+            setSelectedCategory(selectedTransaction.category)
             setId(selectedTransaction.id)
             setUpdateTransactionVisibility(true);
         } else {
@@ -77,14 +77,14 @@ export default function App() {
         event.preventDefault()
         axios.put(
             "/api/finance/"+id, {
-                "description": description,
-                "amount": amount,
-                "category": category
+                "description": selectedDescription,
+                "amount": selectedAmount,
+                "category": selectedCategory
             } as Transaction).then(() => {
                 setId("")
-                setAmount(0)
-                setDescription("")
-                setCategory("INCOME")
+                setSelectedAmount(0)
+                setSelectedDescription("")
+                setSelectedCategory("INCOME")
                 setUpdateTransactionVisibility(false)
             }
         ).then (()=>loadTransactions())
@@ -103,12 +103,12 @@ export default function App() {
             {updateTransactionVisibility && (
                 <UpdateTransaction
                     submit={handleUpdate}
-                    setDescription={setDescription}
-                    setAmount={setAmount}
-                    description={description}
-                    amount={amount}
-                    setCategory={setCategory}
-                    category={category}
+                    setDescription={setSelectedDescription}
+                    setAmount={setSelectedAmount}
+                    description={selectedDescription}
+                    amount={selectedAmount}
+                    setCategory={setSelectedCategory}
+                    category={selectedCategory}
                     cancel={cancelUpdateComponent}
                 />
             )}
