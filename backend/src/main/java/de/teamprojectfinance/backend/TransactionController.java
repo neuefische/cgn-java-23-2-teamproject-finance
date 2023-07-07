@@ -25,4 +25,15 @@ public class TransactionController {
     public Transaction addTransaction(@RequestBody DtoTransaction dtoTransaction) {
         return transactionService.addTransaction(dtoTransaction);
     }
+
+    @PutMapping("{id}")
+    public Transaction updateTransaction(@PathVariable("id") String id, @RequestBody DtoTransaction dtoTransaction){
+
+        return transactionService.updateTransaction(dtoTransaction, id);
+
+
+
+
+    }
+
 }

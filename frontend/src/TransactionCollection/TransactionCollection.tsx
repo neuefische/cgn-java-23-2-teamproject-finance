@@ -3,6 +3,7 @@ import TransactionCard from "../TransactionCard/TransactionCard.tsx";
 
 type Props={
     transaction: Transaction[]
+    update: (transactionId: string) => void,
 }
 
 export default function TransactionCollection(props: Props){
@@ -10,7 +11,7 @@ export default function TransactionCollection(props: Props){
         <>
             <h2>Buchungsliste</h2>
             {
-                props.transaction.map((post )=><TransactionCard transaction={post} key={post.id}/>)
+                props.transaction.map((transaction )=><TransactionCard transaction={transaction} key={transaction.id} update={()=>props.update(transaction.id) }/>)
             }
         </>
     )

@@ -23,4 +23,14 @@ public class TransactionService {
     public List<Transaction> getAllTransactions() {
         return transactionRepo.findAll();
     }
+
+
+    public Transaction updateTransaction(DtoTransaction dtoTransaction, String id){
+
+        return transactionRepo.save(new Transaction(id,dtoTransaction.getDescription(), dtoTransaction.getAmount(), dtoTransaction.getCategory()));
+    }
+
+
+
+
 }
