@@ -1,4 +1,5 @@
 import React, {ChangeEvent, FormEvent} from "react";
+import "./TransactionAddUpdateDelete.css"
 
 
 type Props = {
@@ -11,7 +12,7 @@ type Props = {
     category: "INCOME" | "EXPENSE",
     cancel: () => void,
     delete: (event: React.MouseEvent<HTMLButtonElement>) => void,
-    visibilityDeleteButton: boolean
+    visibilityDeleteButton: boolean,
 }
 
 export default function TransactionAddUpdateDelete(props: Props) {
@@ -19,7 +20,6 @@ export default function TransactionAddUpdateDelete(props: Props) {
 
     const handleCategoryChange = (event: ChangeEvent<HTMLInputElement>) => {
         props.setCategory(event.target.value as "INCOME" | "EXPENSE");
-        console.log(event.target.value);
     };
 
 
