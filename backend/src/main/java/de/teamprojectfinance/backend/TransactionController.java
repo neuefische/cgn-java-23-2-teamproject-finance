@@ -31,9 +31,11 @@ public class TransactionController {
 
         return transactionService.updateTransaction(dtoTransaction, id);
 
+    }
 
-
-
+    @DeleteMapping("{id}")
+    public void deleteTransaction(@PathVariable("id") String id){
+        transactionService.deleteTransaction(id);
     }
 
 }

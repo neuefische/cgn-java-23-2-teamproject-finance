@@ -1,5 +1,5 @@
-import AddTransaction from "./addTransaction/AddTransaction.tsx";
-import {FormEvent, useEffect, useState} from "react";
+import TransactionAddUpdateDelete from "./TransactionAddUpdateDelete/TransactionAddUpdateDelete.tsx";
+import React, {FormEvent, useEffect, useState} from "react";
 import axios from "axios";
 import {Transaction} from "./model/model.ts";
 import TransactionCollection from "./TransactionCollection/TransactionCollection.tsx";
@@ -91,6 +91,21 @@ export default function App() {
 
     }
 
+    function handleDelete(event: React.MouseEvent<HTMLButtonElement>){
+        event.preventDefault()
+        axios.delete(
+            "api/finance/"+id,
+        ).then(() => {
+                setId("")
+                setSelectedAmount(0)
+                setSelectedDescription("")
+                setSelectedCategory("INCOME")
+                setUpdateTransactionVisibility(false)
+            }
+        ).then (()=>loadTransactions())
+
+    }
+
 
     return (
         <>
@@ -100,18 +115,20 @@ export default function App() {
 
 
 
-            <AddTransaction submit={handleSubmit}
-                            setAmount={setAmount}
-                            setDescription={setDescription}
-                            amount={amount}
-                            description={description}
-                            category={category}
-                            setCategory={setCategory}
-                            cancel={cancelUpdateComponent}
+            <TransactionAddUpdateDelete submit={handleSubmit}
+                                        setAmount={setAmount}
+                                        setDescription={setDescription}
+                                        amount={amount}
+                                        description={description}
+                                        category={category}
+                                        setCategory={setCategory}
+                                        cancel={cancelUpdateComponent}
+                                        visibilityDeleteButton={updateTransactionVisibility}
+                                        delete={handleDelete}
             />
 
             {updateTransactionVisibility && (
-                <AddTransaction
+                <TransactionAddUpdateDelete
                     submit={handleUpdate}
                     setDescription={setSelectedDescription}
                     setAmount={setSelectedAmount}
@@ -120,6 +137,8 @@ export default function App() {
                     setCategory={setSelectedCategory}
                     category={selectedCategory}
                     cancel={cancelUpdateComponent}
+                    visibilityDeleteButton={updateTransactionVisibility}
+                    delete={handleDelete}
                 />
             )}
 

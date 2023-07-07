@@ -29,14 +29,14 @@ class TransactionServiceTest {
 
 
         //When
-        Mockito.when(transactionRepo.save(givenTestModelRepo))
+        Mockito.when(transactionRepo.insert(givenTestModelRepo))
                 .thenReturn(givenTestModelRepo);
         Mockito.when(idService.createRandomId())
                 .thenReturn("01A");
 
         Transaction actualModel = transactionService.addTransaction(givenTestModel);
         //Then
-        verify(transactionRepo).save(givenTestModelRepo);
+        verify(transactionRepo).insert(givenTestModelRepo);
         verify(idService).createRandomId();
         assertEquals(givenTestModel1, actualModel);
 
@@ -78,5 +78,15 @@ class TransactionServiceTest {
         //Then
         verify(transactionRepo).save(any());
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void deleteTransactionWhenTransactionIsExisting(){
+        //given
+        String id = "abc";
+        //when
+        transactionService.deleteTransaction(id);
+        //then
+        verify(transactionRepo).deleteById(id);
     }
 }

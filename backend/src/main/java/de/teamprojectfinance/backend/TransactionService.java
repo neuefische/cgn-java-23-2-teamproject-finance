@@ -16,7 +16,7 @@ public class TransactionService {
     }
 
     public Transaction addTransaction(DtoTransaction dtoTransaction) {
-        return transactionRepo.save(new Transaction(idService.createRandomId(),dtoTransaction.getDescription(), dtoTransaction.getAmount(), dtoTransaction.getCategory()));
+        return transactionRepo.insert(new Transaction(idService.createRandomId(),dtoTransaction.getDescription(), dtoTransaction.getAmount(), dtoTransaction.getCategory()));
     }
 
 
@@ -31,6 +31,7 @@ public class TransactionService {
     }
 
 
-
-
+    public void deleteTransaction(String id) {
+        transactionRepo.deleteById(id);
+    }
 }
