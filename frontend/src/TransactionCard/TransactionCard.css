@@ -1,0 +1,52 @@
+.transactionFieldset {
+    border: 4px solid;
+    border-radius: 8px;
+    padding: 5px;
+    margin: 10px;
+}
+
+
+
+
+.transactionCard {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 8px;
+    /*border: 1px solid #ccc;*/
+    border-radius: 8px;
+}
+
+.label {
+    font-weight: bold;
+
+    padding-right: 10px;
+}
+
+.value {
+
+    padding-right: 10px;
+
+}
+
+.button {
+
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    color: #fff;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    margin-left: auto;
+}
+.button:hover {
+    border-color: #646cff;
+}
+.button:focus,
+.button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+}
