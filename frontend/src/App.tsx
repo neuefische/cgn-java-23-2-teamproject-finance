@@ -131,6 +131,7 @@ export default function App() {
         setSelectedAmount(0)
         setSelectedCategory("INCOME")
         setDeleteButtonVisibility(false);
+
     }
 
 

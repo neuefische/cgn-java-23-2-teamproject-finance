@@ -47,13 +47,11 @@ export default function TransactionAddUpdateDelete(props: Props) {
                 />EXPENSE
 
 
-
-
                 <button>Speichern</button>
                 <button onClick={props.cancel}>Abbrechen</button>
-                {props.visibilityDeleteButton&& (
-                <button onClick={props.delete}>Löschen</button>
-                    )}
+                {props.visibilityDeleteButton && (
+                    <button onClick={props.delete}>Löschen</button>
+                )}
             </form>
 
 
