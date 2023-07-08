@@ -7,7 +7,6 @@ import TransactionCollection from "./TransactionCollection/TransactionCollection
 import ReactModal from "react-modal";
 
 
-
 export default function App() {
 
 
@@ -19,7 +18,7 @@ export default function App() {
     const [deleteButtonVisibility, setDeleteButtonVisibility] = useState(false);
     const [selectedDescription, setSelectedDescription] = useState<string>("")
     const [selectedAmount, setSelectedAmount] = useState<number>(0)
-    const [selectedCategory, setSelectedCategory] = useState<"INCOME"|"EXPENSE">("INCOME")
+    const [selectedCategory, setSelectedCategory] = useState<"INCOME" | "EXPENSE">("INCOME")
     const [isModalAddOpen, setIsModalAddOpen] = useState(false);
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
 
@@ -34,7 +33,7 @@ export default function App() {
     }
 
     useEffect(loadTransactions, [])
- 
+
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
@@ -76,11 +75,10 @@ export default function App() {
     }
 
 
-
     function handleUpdate(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         axios.put(
-            "/api/finance/"+id, {
+            "/api/finance/" + id, {
                 "description": selectedDescription,
                 "amount": selectedAmount,
                 "category": selectedCategory
@@ -91,15 +89,15 @@ export default function App() {
                 setSelectedCategory("INCOME")
                 setDeleteButtonVisibility(false)
             }
-        ).then (()=>loadTransactions())
+        ).then(() => loadTransactions())
             .then(closeModalUpdate)
 
     }
 
-    function handleDelete(event: React.MouseEvent<HTMLButtonElement>){
+    function handleDelete(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault()
         axios.delete(
-            "api/finance/"+id,
+            "api/finance/" + id,
         ).then(() => {
                 setId("")
                 setSelectedAmount(0)
@@ -107,7 +105,7 @@ export default function App() {
                 setSelectedCategory("INCOME")
                 setDeleteButtonVisibility(false)
             }
-        ).then (()=>loadTransactions())
+        ).then(() => loadTransactions())
             .then(closeModalUpdate)
 
     }
@@ -123,11 +121,11 @@ export default function App() {
         setCategory("INCOME")
     }
 
-    function openModalUpdate(){
+    function openModalUpdate() {
         setIsModalUpdateOpen(true)
     }
 
-    function closeModalUpdate(){
+    function closeModalUpdate() {
         setIsModalUpdateOpen(false)
         setSelectedDescription("")
         setSelectedAmount(0)
@@ -137,19 +135,20 @@ export default function App() {
 
 
     return (
-        <>
-            <h1>Finanzen virtuelles Tierheim</h1>
 
-          <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
-            <button onClick={openModalAdd}>Buchung Anlegen</button>
+        <body>
+        <h1>Finanzen virtuelles Tierheim</h1>
+
+        <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
+        <button onClick={openModalAdd}>Buchung Anlegen</button>
 
 
-            <ReactModal
-                isOpen={isModalAddOpen}
-                onRequestClose={closeModalAdd}
-                className="modal"
-                overlayClassName="overlay"
-                >
+        <ReactModal
+            isOpen={isModalAddOpen}
+            onRequestClose={closeModalAdd}
+            className="modal"
+            overlayClassName="overlay"
+        >
             <TransactionAddUpdateDelete submit={handleSubmit}
                                         setAmount={setAmount}
                                         setDescription={setDescription}
@@ -163,28 +162,27 @@ export default function App() {
             /></ReactModal>
 
 
-            <ReactModal
-                isOpen={isModalUpdateOpen}
-                onRequestClose={closeModalUpdate}
-                className="modal"
-                overlayClassName="overlay"
-            >
-                <TransactionAddUpdateDelete
-                    submit={handleUpdate}
-                    setDescription={setSelectedDescription}
-                    setAmount={setSelectedAmount}
-                    description={selectedDescription}
-                    amount={selectedAmount}
-                    setCategory={setSelectedCategory}
-                    category={selectedCategory}
-                    cancel={closeModalUpdate}
-                    visibilityDeleteButton={deleteButtonVisibility}
-                    delete={handleDelete}
-                /></ReactModal>
+        <ReactModal
+            isOpen={isModalUpdateOpen}
+            onRequestClose={closeModalUpdate}
+            className="modal"
+            overlayClassName="overlay"
+        >
+            <TransactionAddUpdateDelete
+                submit={handleUpdate}
+                setDescription={setSelectedDescription}
+                setAmount={setSelectedAmount}
+                description={selectedDescription}
+                amount={selectedAmount}
+                setCategory={setSelectedCategory}
+                category={selectedCategory}
+                cancel={closeModalUpdate}
+                visibilityDeleteButton={deleteButtonVisibility}
+                delete={handleDelete}
+            /></ReactModal>
 
+        </body>
 
-
-        </>
 
     )
 }
