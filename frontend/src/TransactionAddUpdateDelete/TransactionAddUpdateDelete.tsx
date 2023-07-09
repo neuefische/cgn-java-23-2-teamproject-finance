@@ -1,5 +1,6 @@
 import React, {ChangeEvent, FormEvent} from "react";
 import "./TransactionAddUpdateDelete.css"
+import {Box, TextField} from "@mui/material";
 
 
 type Props = {
@@ -7,7 +8,7 @@ type Props = {
     setDescription: (event: string) => void,
     setAmount: (number: number) => void,
     description: string,
-    amount: number,
+    amount: number | null,
     setCategory: (event: "INCOME" | "EXPENSE") => void,
     category: "INCOME" | "EXPENSE",
     cancel: () => void,
@@ -27,11 +28,38 @@ export default function TransactionAddUpdateDelete(props: Props) {
         <>
             <form onSubmit={props.submit}>
 
+                <Box
+                    component="form"
+                    sx={{
+                        '& .MuiTextField-root': {m: 1, width: '25ch'},
+                    }}
+                    noValidate
+                    autoComplete="off"
+                >
 
-                <input type={"text"} onChange={event => props.setDescription(event.target.value)}
-                       value={props.description} placeholder={"Beschreibung"}/>
-                <input type={"number"} onChange={event => props.setAmount(parseInt(event.target.value))}
-                       value={props.amount} placeholder={"Betrag"}/>
+                    <TextField
+                        type="text"
+                        required
+                        id="outlined-required"
+                        label="Beschreibung"
+                        value={props.description}
+                        onChange={event => props.setDescription(event.target.value)}
+                    />
+
+                    <TextField
+                        type="number"
+                        required
+                        id="outlined-required"
+                        label="Betrag"
+                        value={props.amount}
+                        onChange={event => props.setAmount(parseInt(event.target.value))}
+                    />
+                </Box>
+
+                {/*<input type={"text"} onChange={event => props.setDescription(event.target.value)}*/}
+                {/*       value={props.description} placeholder={"Beschreibung"}/>*/}
+                {/*<input type={"number"} onChange={event => props.setAmount(parseInt(event.target.value))}*/}
+                {/*       value={props.amount} placeholder={"Betrag"}/>*/}
 
                 <input
                     type="radio"
