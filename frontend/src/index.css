@@ -50,6 +50,10 @@ button {
     transition: border-color 0.25s;
 }
 
+.buttonAdd {
+    margin-bottom: 1.2em;
+}
+
 button:hover {
     border-color: #02e3f7;
 }

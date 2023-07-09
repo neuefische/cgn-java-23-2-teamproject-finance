@@ -1,6 +1,6 @@
 import React, {ChangeEvent, FormEvent} from "react";
 import "./TransactionAddUpdateDelete.css"
-import {Box, TextField} from "@mui/material";
+import { FormControlLabel, Radio, RadioGroup, TextField} from "@mui/material";
 
 
 type Props = {
@@ -27,59 +27,48 @@ export default function TransactionAddUpdateDelete(props: Props) {
     return (
         <>
             <form onSubmit={props.submit}>
-
-                <Box
-                    component="form"
-                    sx={{
-                        '& .MuiTextField-root': {m: 1, width: '25ch'},
-                    }}
-                    noValidate
-                    autoComplete="off"
-                >
-
-                    <TextField
-                        type="text"
-                        required
-                        id="outlined-required"
-                        label="Beschreibung"
-                        value={props.description}
-                        onChange={event => props.setDescription(event.target.value)}
-                    />
-
-                    <TextField
-                        type="number"
-                        required
-                        id="outlined-required"
-                        label="Betrag"
-                        value={props.amount}
-                        onChange={event => props.setAmount(parseInt(event.target.value))}
-                    />
-                </Box>
-
-                {/*<input type={"text"} onChange={event => props.setDescription(event.target.value)}*/}
-                {/*       value={props.description} placeholder={"Beschreibung"}/>*/}
-                {/*<input type={"number"} onChange={event => props.setAmount(parseInt(event.target.value))}*/}
-                {/*       value={props.amount} placeholder={"Betrag"}/>*/}
-
-                <input
-                    type="radio"
-                    value="INCOME"
-                    checked={props.category === 'INCOME'}
-                    onChange={handleCategoryChange}
-                />INCOME
-                <input
-                    type="radio"
-                    value="EXPENSE"
-                    checked={props.category === 'EXPENSE'}
-                    onChange={handleCategoryChange}
-                />EXPENSE
+                <div className={"row"}>
 
 
-                <button>Speichern</button>
-                <button onClick={props.cancel}>Abbrechen</button>
-                {props.visibilityDeleteButton && (
-                    <button onClick={props.delete}>Löschen</button>
-                )}
+                        <TextField
+                            type="text"
+                            required
+                            id="outlined-required"
+                            label="Beschreibung"
+                            value={props.description}
+                            onChange={event => props.setDescription(event.target.value)}
+                        />
+
+                        <TextField
+                            type="number"
+                            required
+                            id="outlined-required"
+                            label="Betrag"
+                            value={props.amount}
+                            onChange={event => props.setAmount(parseInt(event.target.value))}
+                        />
+
+                </div>
+                <div className={"row"}>
+                    <RadioGroup
+                        row
+                        aria-labelledby="demo-row-radio-buttons-group-label"
+                        name="row-radio-buttons-group"
+                        value={props.category}
+                        onChange={handleCategoryChange}
+                    >
+                        <FormControlLabel value="INCOME" control={<Radio/>} label="EINNAHME"/>
+                        <FormControlLabel value="EXPENSE" control={<Radio/>} label="AUSGABE"/>
+
+                    </RadioGroup>
+                </div>
+                <div className={"row"}>
+                    <button>Speichern</button>
+                    <button onClick={props.cancel}>Abbrechen</button>
+                    {props.visibilityDeleteButton && (
+                        <button onClick={props.delete}>Löschen</button>
+                    )}
+                </div>
             </form>
 
 

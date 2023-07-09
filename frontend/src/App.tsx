@@ -141,7 +141,7 @@ export default function App() {
         <h1>Finanzen virtuelles Tierheim</h1>
 
         <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
-        <button onClick={openModalAdd}>Buchung Anlegen</button>
+        <button className={"buttonAdd"} onClick={openModalAdd}>Buchung Anlegen</button>
 
 
         <ReactModal
