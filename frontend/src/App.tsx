@@ -11,7 +11,7 @@ export default function App() {
 
 
     const [description, setDescription] = useState<string>("");
-    const [amount, setAmount] = useState<number>(0);
+    const [amount, setAmount] = useState<number | null>(null);
     const [category, setCategory] = useState<"INCOME" | "EXPENSE">("INCOME");
     const [id, setId] = useState<string>("")
     const [transactions, setTransactions] = useState<Transaction[]>([]);
