@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
+
 
 @Data
 @AllArgsConstructor
@@ -19,7 +21,7 @@ public class Transaction {
 
     private String description;
 
-    private int amount;
+    private BigDecimal amount;
 
     private TransactionCategory category;
 
