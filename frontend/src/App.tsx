@@ -97,7 +97,7 @@ export default function App() {
     function handleDelete(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault()
         axios.delete(
-            "api/finance/" + id,
+            "/api/finance/" + id,
         ).then(() => {
                 setId("")
                 setSelectedAmount(0)
