@@ -6,9 +6,9 @@ import {FormControlLabel, Radio, RadioGroup, TextField} from "@mui/material";
 type Props = {
     submit: (event: FormEvent<HTMLFormElement>) => void,
     setDescription: (event: string) => void,
-    setAmount: (number: number) => void,
+    setAmount: (number: string) => void,
     description: string,
-    amount: number | null,
+    amount: string,
     setCategory: (event: "INCOME" | "EXPENSE") => void,
     category: "INCOME" | "EXPENSE",
     cancel: () => void,
@@ -88,7 +88,7 @@ export default function TransactionAddUpdateDelete(props: Props) {
                         label="Betrag"
                         value={props.amount}
                         onChange={handleChangeAmount}
-                        inputProps={{step: '0.5'}}
+                        inputProps={{step: '0.01'}}
                     />
 
                 </div>

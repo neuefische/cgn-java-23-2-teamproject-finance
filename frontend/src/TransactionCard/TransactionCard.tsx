@@ -15,10 +15,10 @@ export default function TransactionCard(props: Props) {
         date: string,
         description: string,
         category: string,
-        amount: number,
+        amount: string,
     ) {
 
-        let categoryGerman = "";
+        let categoryGerman ;
         if (category === "INCOME"){
             categoryGerman = "Einnahme"
         } else {

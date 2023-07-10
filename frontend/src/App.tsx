@@ -14,13 +14,13 @@ export default function App() {
 
 
     const [description, setDescription] = useState<string>("");
-    const [amount, setAmount] = useState<number | null>(null);
+    const [amount, setAmount] = useState("");
     const [category, setCategory] = useState<"INCOME" | "EXPENSE">("INCOME");
     const [id, setId] = useState<string>("")
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [deleteButtonVisibility, setDeleteButtonVisibility] = useState(false);
     const [selectedDescription, setSelectedDescription] = useState<string>("")
-    const [selectedAmount, setSelectedAmount] = useState<number>(0)
+    const [selectedAmount, setSelectedAmount] = useState("")
     const [selectedCategory, setSelectedCategory] = useState<"INCOME" | "EXPENSE">("INCOME")
     const [isModalAddOpen, setIsModalAddOpen] = useState(false);
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
@@ -59,7 +59,7 @@ export default function App() {
                 "category": category,
             }
         ).then(() => {
-                setAmount(0)
+                setAmount("")
                 setDescription("")
                 setCategory("INCOME")
 
@@ -98,7 +98,7 @@ export default function App() {
                 "category": selectedCategory
             } as Transaction).then(() => {
                 setId("")
-                setSelectedAmount(0)
+                setSelectedAmount("")
                 setSelectedDescription("")
                 setSelectedCategory("INCOME")
                 setDeleteButtonVisibility(false)
@@ -114,7 +114,7 @@ export default function App() {
             "/api/finance/" + id,
         ).then(() => {
                 setId("")
-                setSelectedAmount(0)
+                setSelectedAmount("")
                 setSelectedDescription("")
                 setSelectedCategory("INCOME")
                 setDeleteButtonVisibility(false)
@@ -150,7 +150,7 @@ export default function App() {
     function closeModalAdd() {
         setIsModalAddOpen(false);
         setDescription("")
-        setAmount(0)
+        setAmount("")
         setCategory("INCOME")
     }
 
@@ -161,7 +161,7 @@ export default function App() {
     function closeModalUpdate() {
         setIsModalUpdateOpen(false)
         setSelectedDescription("")
-        setSelectedAmount(0)
+        setSelectedAmount("")
         setSelectedCategory("INCOME")
         setDeleteButtonVisibility(false);
 
