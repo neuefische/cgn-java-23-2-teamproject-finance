@@ -17,7 +17,15 @@ export default function TransactionCard(props: Props) {
         category: string,
         amount: number,
     ) {
-        return {date, description, category, amount};
+
+        let categoryGerman = "";
+        if (category === "INCOME"){
+            categoryGerman = "Einnahme"
+        } else {
+            categoryGerman = "Ausgabe"
+        }
+
+        return {date, description, categoryGerman, amount};
     }
 
     const rows = [
@@ -34,7 +42,7 @@ export default function TransactionCard(props: Props) {
                 >
                     <TableCell component="th" scope="row">{row.date}</TableCell>
                     <TableCell align="right">{row.description}</TableCell>
-                    <TableCell align="right">{row.category}</TableCell>
+                    <TableCell align="right">{row.categoryGerman}</TableCell>
                     <TableCell align="right">{row.amount}</TableCell>
                     <TableCell align="right">
                         <button className={"button1"} onClick={props.update}>Buchung Ändern</button>
