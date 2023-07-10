@@ -37,6 +37,7 @@ export default function TransactionAddUpdateDelete(props: Props) {
                             label="Beschreibung"
                             value={props.description}
                             onChange={event => props.setDescription(event.target.value)}
+
                         />
 
                         <TextField
@@ -46,6 +47,7 @@ export default function TransactionAddUpdateDelete(props: Props) {
                             label="Betrag"
                             value={props.amount}
                             onChange={event => props.setAmount(parseInt(event.target.value))}
+                            inputProps={{ step: '0.5' }}
                         />
 
                 </div>
