@@ -31,7 +31,8 @@ public class SecurityConfig {
 
                                 .requestMatchers(HttpMethod.GET, "/api/finance/**").permitAll()
                                 .requestMatchers( "/api/finance/**").authenticated()
-                                .anyRequest().authenticated()
+
+                               .anyRequest().authenticated()
                 )
                 .formLogin(Customizer.withDefaults())
                 .build();
