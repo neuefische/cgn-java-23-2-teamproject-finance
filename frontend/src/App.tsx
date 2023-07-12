@@ -22,6 +22,9 @@ export default function App() {
     const [selectedCategory, setSelectedCategory] = useState<"INCOME" | "EXPENSE">("INCOME")
     const [isModalAddOpen, setIsModalAddOpen] = useState(false);
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
+    const [user, setUser] = useState<string>()
+
+    const navigate = useNavigate()
 
     function loadTransactions() {
         axios.get(
@@ -111,6 +114,16 @@ export default function App() {
 
     }
 
+    function login(username: string, password: string){
+        axios.post("/api/users/login",null,{auth:{username,password}})
+            .then((response)=>{
+                setUser(response.data)
+                navigate("/")
+            })
+
+
+    }
+
     function openModalAdd() {
         setIsModalAddOpen(true);
     }
@@ -139,12 +152,15 @@ export default function App() {
     return (
 
         <body>
-        <h1>Finanzen virtuelles Tierheim</h1>
+        <div>
+            <h1>Finanzen virtuelles Tierheim</h1>
+        </div>
+
 
         <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
         <button className={"buttonAdd"} onClick={openModalAdd}>Buchung Anlegen</button>
 
-        <LoginPage/>
+        <LoginPage login={login}/>
 
         <ReactModal
             isOpen={isModalAddOpen}

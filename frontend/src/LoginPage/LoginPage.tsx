@@ -1,18 +1,19 @@
 import {FormEvent, useState} from "react";
-import axios from "axios";
 
-export default function LoginPage(){
+
+type Props = {
+    login: (username: string, password: string) => void
+
+}
+
+export default function LoginPage(props: Props){
 
     const[username,setUsername]=useState<string>("")
     const[password,setPassword]=useState<string>("")
 
     function onLogin(event: FormEvent){
         event.preventDefault()
-        axios.post("/api/users/login",null,{auth:{username,password}})
-            .then(console.log)
-
-        setPassword("")
-        setUsername("")
+        props.login(username, password)
 
     }
 
