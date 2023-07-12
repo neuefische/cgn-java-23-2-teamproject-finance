@@ -5,6 +5,7 @@ import {Transaction} from "./model/model.ts";
 import TransactionCollection from "./TransactionCollection/TransactionCollection.tsx";
 
 import ReactModal from "react-modal";
+import LoginPage from "./LoginPage/LoginPage.tsx";
 
 
 export default function App() {
@@ -143,6 +144,7 @@ export default function App() {
         <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
         <button className={"buttonAdd"} onClick={openModalAdd}>Buchung Anlegen</button>
 
+        <LoginPage/>
 
         <ReactModal
             isOpen={isModalAddOpen}
