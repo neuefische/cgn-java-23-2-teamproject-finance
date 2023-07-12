@@ -11,6 +11,9 @@ export default function LoginPage(){
         axios.post("/api/users/login",null,{auth:{username,password}})
             .then(console.log)
 
+        setPassword("")
+        setUsername("")
+
     }
 
 
