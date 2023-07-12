@@ -35,5 +35,6 @@ public class Config implements WebMvcConfigurer {
                                 : new ClassPathResource("/static/index.html");
                     }
                 });
+
     }
 }
