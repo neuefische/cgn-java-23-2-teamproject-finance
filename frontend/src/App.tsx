@@ -37,10 +37,15 @@ export default function App() {
 
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         loadTransactions()
         me()
     }, [])
+
+
+    if (!transactions) {
+        return "Lade..."
+    }
 
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -132,6 +137,8 @@ export default function App() {
         axios.get("/api/users/me2")
             .then(response => {
                 setUser(response.data)
+                navigate("/")
+
             })
     }
 
@@ -163,64 +170,64 @@ export default function App() {
     return (
 
         <>
-        <div>
-            <h1>Finanzen virtuelles Tierheim</h1>
-            <p>{user}</p>
-        </div>
+            <div>
+                <h1>Finanzen virtuelles Tierheim</h1>
+                <p>{user}</p>
+            </div>
 
-        <Routes>
-            <Route element={<ProtectedRoutes user={user}/>}>
+            <Routes>
+                <Route element={<ProtectedRoutes user={user}/>}>
 
-                <Route path="/" element={<div>
+                    <Route path="/" element={<div>
 
-                    <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
-                    <button className={"buttonAdd"} onClick={openModalAdd}>Buchung Anlegen</button>
-
-
-                    <ReactModal
-                        isOpen={isModalAddOpen}
-                        onRequestClose={closeModalAdd}
-                        className="modal"
-                        overlayClassName="overlay"
-                    >
-                        <TransactionAddUpdateDelete submit={handleSubmit}
-                                                    setAmount={setAmount}
-                                                    setDescription={setDescription}
-                                                    amount={amount}
-                                                    description={description}
-                                                    category={category}
-                                                    setCategory={setCategory}
-                                                    cancel={closeModalAdd}
-                                                    visibilityDeleteButton={deleteButtonVisibility}
-                                                    delete={handleDelete}
-                        /></ReactModal>
+                        <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
+                        <button className={"buttonAdd"} onClick={openModalAdd}>Buchung Anlegen</button>
 
 
-                    <ReactModal
-                        isOpen={isModalUpdateOpen}
-                        onRequestClose={closeModalUpdate}
-                        className="modal"
-                        overlayClassName="overlay"
-                    >
-                        <TransactionAddUpdateDelete
-                            submit={handleUpdate}
-                            setDescription={setSelectedDescription}
-                            setAmount={setSelectedAmount}
-                            description={selectedDescription}
-                            amount={selectedAmount}
-                            setCategory={setSelectedCategory}
-                            category={selectedCategory}
-                            cancel={closeModalUpdate}
-                            visibilityDeleteButton={deleteButtonVisibility}
-                            delete={handleDelete}
-                        /></ReactModal>
-                </div>}/>
-                    <Route path="home" element={<p>Home</p>}/>
-            </Route>
+                        <ReactModal
+                            isOpen={isModalAddOpen}
+                            onRequestClose={closeModalAdd}
+                            className="modal"
+                            overlayClassName="overlay"
+                        >
+                            <TransactionAddUpdateDelete submit={handleSubmit}
+                                                        setAmount={setAmount}
+                                                        setDescription={setDescription}
+                                                        amount={amount}
+                                                        description={description}
+                                                        category={category}
+                                                        setCategory={setCategory}
+                                                        cancel={closeModalAdd}
+                                                        visibilityDeleteButton={deleteButtonVisibility}
+                                                        delete={handleDelete}
+                            /></ReactModal>
 
 
-            <Route path="/login" element={<LoginPage login={login}/>}/>
-        </Routes>
+                        <ReactModal
+                            isOpen={isModalUpdateOpen}
+                            onRequestClose={closeModalUpdate}
+                            className="modal"
+                            overlayClassName="overlay"
+                        >
+                            <TransactionAddUpdateDelete
+                                submit={handleUpdate}
+                                setDescription={setSelectedDescription}
+                                setAmount={setSelectedAmount}
+                                description={selectedDescription}
+                                amount={selectedAmount}
+                                setCategory={setSelectedCategory}
+                                category={selectedCategory}
+                                cancel={closeModalUpdate}
+                                visibilityDeleteButton={deleteButtonVisibility}
+                                delete={handleDelete}
+                            /></ReactModal>
+                    </div>}/>
+
+                </Route>
+
+
+                <Route path="/login" element={<LoginPage login={login}/>}/>
+            </Routes>
 
         </>
 
