@@ -25,7 +25,6 @@ export default function App() {
     const [isModalAddOpen, setIsModalAddOpen] = useState(false);
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
     const [user, setUser] = useState<string>()
-
     const navigate = useNavigate()
 
     function loadTransactions() {
@@ -163,7 +162,7 @@ export default function App() {
 
     return (
 
-        <body>
+        <>
         <div>
             <h1>Finanzen virtuelles Tierheim</h1>
             <p>{user}</p>
@@ -223,7 +222,7 @@ export default function App() {
             <Route path="/login" element={<LoginPage login={login}/>}/>
         </Routes>
 
-        </body>
+        </>
 
 
     )
