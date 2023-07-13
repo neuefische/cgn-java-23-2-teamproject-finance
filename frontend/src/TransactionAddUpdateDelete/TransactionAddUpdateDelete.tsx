@@ -1,6 +1,6 @@
-import React, {ChangeEvent, FormEvent} from "react";
+import React, {ChangeEvent, FormEvent, useState} from "react";
 import "./TransactionAddUpdateDelete.css"
-import { FormControlLabel, Radio, RadioGroup, TextField} from "@mui/material";
+import {FormControlLabel, Radio, RadioGroup, TextField} from "@mui/material";
 
 
 type Props = {
@@ -14,14 +14,38 @@ type Props = {
     cancel: () => void,
     delete: (event: React.MouseEvent<HTMLButtonElement>) => void,
     visibilityDeleteButton: boolean,
+
 }
 
 export default function TransactionAddUpdateDelete(props: Props) {
+
+    const [descriptionIsError, setDescriptionIsError] = useState(false)
+    const [amountIsError, setAmountIsError] = useState(false)
 
 
     const handleCategoryChange = (event: ChangeEvent<HTMLInputElement>) => {
         props.setCategory(event.target.value as "INCOME" | "EXPENSE");
     };
+
+    const handleChangeDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
+        props.setDescription(event.target.value)
+
+        if (event.target.value.length <= 5 && event.target.value.length > 0) {
+            setDescriptionIsError(true)
+        } else {
+            setDescriptionIsError(false)
+        }
+    }
+
+    const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
+        props.setAmount(parseInt(event.target.value))
+
+        if (parseInt(event.target.value) <= 0) {
+            setAmountIsError(true)
+        } else {
+            setAmountIsError(false)
+        }
+    }
 
 
     return (
@@ -30,25 +54,29 @@ export default function TransactionAddUpdateDelete(props: Props) {
                 <div className={"row"}>
 
 
-                        <TextField
-                            type="text"
-                            required
-                            id="outlined-required"
-                            label="Beschreibung"
-                            value={props.description}
-                            onChange={event => props.setDescription(event.target.value)}
+                    <TextField
+                        error={descriptionIsError}
+                        helperText={descriptionIsError && "Die Eingabe entspricht nicht den Vorgaben"}
+                        type="text"
+                        required
+                        id="outlined-required"
+                        label="Beschreibung"
+                        value={props.description}
+                        onChange={handleChangeDescription}
 
-                        />
+                    />
 
-                        <TextField
-                            type="number"
-                            required
-                            id="outlined-required"
-                            label="Betrag"
-                            value={props.amount}
-                            onChange={event => props.setAmount(parseInt(event.target.value))}
-                            inputProps={{ step: '0.5' }}
-                        />
+                    <TextField
+                        error={amountIsError}
+                        helperText={amountIsError && "Die Eingabe entspricht nicht den Vorgaben"}
+                        type="number"
+                        required
+                        id="outlined-required"
+                        label="Betrag"
+                        value={props.amount}
+                        onChange={handleChangeAmount}
+                        inputProps={{step: '0.5'}}
+                    />
 
                 </div>
                 <div className={"row"}>
@@ -65,7 +93,8 @@ export default function TransactionAddUpdateDelete(props: Props) {
                     </RadioGroup>
                 </div>
                 <div className={"row"}>
-                    <button>Speichern</button>
+                    {!descriptionIsError && (<button>Speichern</button>)}
+
                     <button onClick={props.cancel}>Abbrechen</button>
                     {props.visibilityDeleteButton && (
                         <button onClick={props.delete}>Löschen</button>
