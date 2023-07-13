@@ -32,7 +32,7 @@ public class SecurityConfig {
                         httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .authorizeHttpRequests(httpRequests ->
                         httpRequests
-                                .requestMatchers(HttpMethod.GET, "/api/finance/").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/finance/").authenticated()
                                 .requestMatchers("/api/finance/").authenticated()
 
                                 .requestMatchers(HttpMethod.GET, "/api/finance/**").permitAll()
@@ -40,7 +40,8 @@ public class SecurityConfig {
 
                                .anyRequest().permitAll()
                 )
-
+                .logout(logout -> logout.logoutUrl("/api/users/logout")
+                .deleteCookies("JSESSIONID"))
                 .build();
     }
 
