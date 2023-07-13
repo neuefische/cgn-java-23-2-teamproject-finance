@@ -1,6 +1,7 @@
 package de.teamprojectfinance.backend;
 
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,12 +23,12 @@ public class TransactionController {
 
 
     @PostMapping
-    public Transaction addTransaction(@RequestBody DtoTransaction dtoTransaction) {
+    public Transaction addTransaction(@Valid @RequestBody DtoTransaction dtoTransaction) {
         return transactionService.addTransaction(dtoTransaction);
     }
 
     @PutMapping("{id}")
-    public Transaction updateTransaction(@PathVariable("id") String id, @RequestBody DtoTransaction dtoTransaction){
+    public Transaction updateTransaction(@PathVariable("id") String id, @Valid @RequestBody DtoTransaction dtoTransaction){
 
         return transactionService.updateTransaction(dtoTransaction, id);
 
