@@ -5,6 +5,9 @@ import {Transaction} from "./model/model.ts";
 import TransactionCollection from "./TransactionCollection/TransactionCollection.tsx";
 
 import ReactModal from "react-modal";
+import LoginPage from "./LoginPage/LoginPage.tsx";
+import {Route, Routes, useNavigate} from "react-router-dom";
+import ProtectedRoutes from "./protectedRoutes/ProtectedRoutes.tsx";
 
 
 export default function App() {
@@ -21,6 +24,8 @@ export default function App() {
     const [selectedCategory, setSelectedCategory] = useState<"INCOME" | "EXPENSE">("INCOME")
     const [isModalAddOpen, setIsModalAddOpen] = useState(false);
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
+    const [user, setUser] = useState<string>()
+    const navigate = useNavigate()
 
     function loadTransactions() {
         axios.get(
@@ -32,7 +37,15 @@ export default function App() {
 
     }
 
-    useEffect(loadTransactions, [])
+    useEffect(() => {
+        loadTransactions()
+        me()
+    }, [])
+
+
+    if (!transactions) {
+        return "Lade..."
+    }
 
 
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -97,7 +110,7 @@ export default function App() {
     function handleDelete(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault()
         axios.delete(
-            "api/finance/" + id,
+            "/api/finance/" + id,
         ).then(() => {
                 setId("")
                 setSelectedAmount(0)
@@ -108,6 +121,25 @@ export default function App() {
         ).then(() => loadTransactions())
             .then(closeModalUpdate)
 
+    }
+
+    function login(username: string, password: string) {
+        axios.post("/api/users/login", null, {auth: {username, password}})
+            .then((response) => {
+                setUser(response.data)
+                navigate("/")
+            })
+
+
+    }
+
+    function me() {
+        axios.get("/api/users/me2")
+            .then(response => {
+                setUser(response.data)
+                navigate("/")
+
+            })
     }
 
     function openModalAdd() {
@@ -137,52 +169,67 @@ export default function App() {
 
     return (
 
-        <body>
-        <h1>Finanzen virtuelles Tierheim</h1>
+        <>
+            <div>
+                <h1>Finanzen virtuelles Tierheim</h1>
+                <p>{user}</p>
+            </div>
 
-        <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
-        <button className={"buttonAdd"} onClick={openModalAdd}>Buchung Anlegen</button>
+            <Routes>
+                <Route element={<ProtectedRoutes user={user}/>}>
 
+                    <Route path="/" element={<div>
 
-        <ReactModal
-            isOpen={isModalAddOpen}
-            onRequestClose={closeModalAdd}
-            className="modal"
-            overlayClassName="overlay"
-        >
-            <TransactionAddUpdateDelete submit={handleSubmit}
-                                        setAmount={setAmount}
-                                        setDescription={setDescription}
-                                        amount={amount}
-                                        description={description}
-                                        category={category}
-                                        setCategory={setCategory}
-                                        cancel={closeModalAdd}
-                                        visibilityDeleteButton={deleteButtonVisibility}
-                                        delete={handleDelete}
-            /></ReactModal>
+                        <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
+                        <button className={"buttonAdd"} onClick={openModalAdd}>Buchung Anlegen</button>
 
 
-        <ReactModal
-            isOpen={isModalUpdateOpen}
-            onRequestClose={closeModalUpdate}
-            className="modal"
-            overlayClassName="overlay"
-        >
-            <TransactionAddUpdateDelete
-                submit={handleUpdate}
-                setDescription={setSelectedDescription}
-                setAmount={setSelectedAmount}
-                description={selectedDescription}
-                amount={selectedAmount}
-                setCategory={setSelectedCategory}
-                category={selectedCategory}
-                cancel={closeModalUpdate}
-                visibilityDeleteButton={deleteButtonVisibility}
-                delete={handleDelete}
-            /></ReactModal>
+                        <ReactModal
+                            isOpen={isModalAddOpen}
+                            onRequestClose={closeModalAdd}
+                            className="modal"
+                            overlayClassName="overlay"
+                        >
+                            <TransactionAddUpdateDelete submit={handleSubmit}
+                                                        setAmount={setAmount}
+                                                        setDescription={setDescription}
+                                                        amount={amount}
+                                                        description={description}
+                                                        category={category}
+                                                        setCategory={setCategory}
+                                                        cancel={closeModalAdd}
+                                                        visibilityDeleteButton={deleteButtonVisibility}
+                                                        delete={handleDelete}
+                            /></ReactModal>
 
-        </body>
+
+                        <ReactModal
+                            isOpen={isModalUpdateOpen}
+                            onRequestClose={closeModalUpdate}
+                            className="modal"
+                            overlayClassName="overlay"
+                        >
+                            <TransactionAddUpdateDelete
+                                submit={handleUpdate}
+                                setDescription={setSelectedDescription}
+                                setAmount={setSelectedAmount}
+                                description={selectedDescription}
+                                amount={selectedAmount}
+                                setCategory={setSelectedCategory}
+                                category={selectedCategory}
+                                cancel={closeModalUpdate}
+                                visibilityDeleteButton={deleteButtonVisibility}
+                                delete={handleDelete}
+                            /></ReactModal>
+                    </div>}/>
+
+                </Route>
+
+
+                <Route path="/login" element={<LoginPage login={login}/>}/>
+            </Routes>
+
+        </>
 
 
     )
