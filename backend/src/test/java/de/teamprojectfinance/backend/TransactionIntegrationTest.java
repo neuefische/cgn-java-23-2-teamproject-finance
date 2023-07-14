@@ -11,7 +11,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -119,7 +119,8 @@ class TransactionIntegrationTest {
                                         {  \s
                                             "description": "test123",
                                             "amount": "1234",
-                                            "category": "INCOME"
+                                            "category": "INCOME",
+                                            "date": "2023-07-14T00:00:00.000Z"
                                         }
                                         """
                                 )
@@ -129,6 +130,7 @@ class TransactionIntegrationTest {
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
+        assertThat(saveResult).isNotEmpty();
         Transaction saveResultTransaction = objectMapper.readValue(saveResult, Transaction.class);
         //When
 

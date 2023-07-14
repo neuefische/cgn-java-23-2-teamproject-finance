@@ -3,7 +3,7 @@ export type Transaction = {
     description: string,
     amount: string,
     category: "INCOME" | "EXPENSE",
-    date: Date,
+    date: string,
 }
 
 

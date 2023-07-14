@@ -4,6 +4,9 @@ import {DatePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {DemoContainer} from "@mui/x-date-pickers/internals/demo";
 import {FormControlLabel, Radio, RadioGroup, TextField} from "@mui/material";
+import * as dayjs from "dayjs";
+
+
 
 
 type Props = {
@@ -14,7 +17,7 @@ type Props = {
     amount: string,
     setCategory: (event: "INCOME" | "EXPENSE") => void,
     category: "INCOME" | "EXPENSE",
-    date: Date | null,
+    date: string | null,
     setDate: (event: Date | null) => void,
     cancel: () => void,
     delete: (event: React.MouseEvent<HTMLButtonElement>) => void,
@@ -69,10 +72,11 @@ export default function TransactionAddUpdateDelete(props: Props) {
     return (
         <>
             <form onSubmit={props.submit}>
+
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer components={['DatePicker']}>
                         <DatePicker label="Basic date picker"
-                                    value={props.date}
+                                    value={dayjs(props.date)}
                                     onChange={(event: Date | null) => props.setDate(event)}/>
                     </DemoContainer>
                 </LocalizationProvider>

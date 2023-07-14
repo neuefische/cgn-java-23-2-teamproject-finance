@@ -12,7 +12,7 @@ export default function TransactionCard(props: Props) {
 
 
     function createData(
-        date: Date,
+        date: string,
         description: string,
         category: string,
         amount: string,
@@ -37,10 +37,10 @@ export default function TransactionCard(props: Props) {
         <TableBody>
             {rows.map((row) => (
                 <TableRow
-                    key={row.date.toISOString()}
+                    key={row.date.toLocaleString()}
                     sx={{'&:last-child td, &:last-child th': {border: 0}}}
                 >
-                    <TableCell component="th" scope="row">{row.date.toISOString()}</TableCell>
+                    <TableCell component="th" scope="row">{row.date.toLocaleString()}</TableCell>
                     <TableCell align="right">{row.description}</TableCell>
                     <TableCell align="right">{row.categoryGerman}</TableCell>
                     <TableCell align="right">{row.amount} €</TableCell>

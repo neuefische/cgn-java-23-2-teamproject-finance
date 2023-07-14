@@ -17,7 +17,7 @@ export default function App() {
     const [amount, setAmount] = useState("");
     const [category, setCategory] = useState<"INCOME" | "EXPENSE">("INCOME");
     const [id, setId] = useState<string>("")
-    const [date, setDate] = useState<Date | null>(null)
+    const [date, setDate] = useState<string | null>(null)
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [deleteButtonVisibility, setDeleteButtonVisibility] = useState(false);
     const [selectedDescription, setSelectedDescription] = useState<string>("")
@@ -58,11 +58,13 @@ export default function App() {
                 "description": description,
                 "amount": amount,
                 "category": category,
+                "date": date
             }
         ).then(() => {
                 setAmount("")
                 setDescription("")
                 setCategory("INCOME")
+                setDate(null)
             }
         ).catch(console.error)
             .then(loadTransactions)
@@ -78,6 +80,7 @@ export default function App() {
             setSelectedAmount(selectedTransaction.amount)
             setSelectedCategory(selectedTransaction.category)
             setId(selectedTransaction.id)
+            setDate(selectedTransaction.date)
             setDeleteButtonVisibility(true);
         } else {
             throw DOMException
@@ -95,12 +98,14 @@ export default function App() {
             "/api/finance/" + id, {
                 "description": selectedDescription,
                 "amount": selectedAmount,
-                "category": selectedCategory
+                "category": selectedCategory,
+                "date": date
             } as Transaction).then(() => {
                 setId("")
                 setSelectedAmount("")
                 setSelectedDescription("")
                 setSelectedCategory("INCOME")
+                setDate(null)
                 setDeleteButtonVisibility(false)
             }
         ).then(() => loadTransactions())
@@ -117,6 +122,7 @@ export default function App() {
                 setSelectedAmount("")
                 setSelectedDescription("")
                 setSelectedCategory("INCOME")
+                setDate(null)
                 setDeleteButtonVisibility(false)
             }
         ).then(() => loadTransactions())
@@ -152,6 +158,7 @@ export default function App() {
         setDescription("")
         setAmount("")
         setCategory("INCOME")
+        setDate(null)
     }
 
     function openModalUpdate() {
@@ -163,10 +170,14 @@ export default function App() {
         setSelectedDescription("")
         setSelectedAmount("")
         setSelectedCategory("INCOME")
+        setDate(null)
         setDeleteButtonVisibility(false);
 
     }
 
+    console.log(Date.parse(date))
+    console.log(date)
+    console.log(new Date (date))
 
     return (
 
@@ -199,11 +210,11 @@ export default function App() {
                                                         category={category}
                                                         setCategory={setCategory}
                                                         date={date}
-                                        setDate={setDate}
-                                        cancel={closeModalAdd}
-                                        visibilityDeleteButton={deleteButtonVisibility}
-                                        delete={handleDelete}
-            /></ReactModal>
+                                                        setDate={setDate}
+                                                        cancel={closeModalAdd}
+                                                        visibilityDeleteButton={deleteButtonVisibility}
+                                                        delete={handleDelete}
+                            /></ReactModal>
 
 
                         <ReactModal
@@ -221,15 +232,16 @@ export default function App() {
                                 setCategory={setSelectedCategory}
                                 category={selectedCategory}
                                 date={date}
-                setDate={setDate}
-                cancel={closeModalUpdate}
-                visibilityDeleteButton={deleteButtonVisibility}
-                delete={handleDelete}
-            /></ReactModal></div>}/>
+                                setDate={setDate}
+                                cancel={closeModalUpdate}
+                                visibilityDeleteButton={deleteButtonVisibility}
+                                delete={handleDelete}
+                            /></ReactModal></div>}/>
 
                 </Route>
 
-
+                    </div>}/>
+                </Route>
                 <Route path="/login" element={<LoginPage login={login}/>}/>
             </Routes>
 
