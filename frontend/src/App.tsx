@@ -17,6 +17,7 @@ export default function App() {
     const [amount, setAmount] = useState("");
     const [category, setCategory] = useState<"INCOME" | "EXPENSE">("INCOME");
     const [id, setId] = useState<string>("")
+    const [date, setDate] = useState<Date | null>(null)
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [deleteButtonVisibility, setDeleteButtonVisibility] = useState(false);
     const [selectedDescription, setSelectedDescription] = useState<string>("")
@@ -198,11 +199,12 @@ export default function App() {
                                                         description={description}
                                                         category={category}
                                                         setCategory={setCategory}
-                                                        cancel={closeModalAdd}
-                                                        visibilityDeleteButton={deleteButtonVisibility}
-                                                        delete={handleDelete}
-
-                            /></ReactModal>
+                                                        date={date}
+                                        setDate={setDate}
+                                        cancel={closeModalAdd}
+                                        visibilityDeleteButton={deleteButtonVisibility}
+                                        delete={handleDelete}
+            /></ReactModal>
 
 
                         <ReactModal
@@ -219,12 +221,12 @@ export default function App() {
                                 amount={selectedAmount}
                                 setCategory={setSelectedCategory}
                                 category={selectedCategory}
-                                cancel={closeModalUpdate}
-                                visibilityDeleteButton={deleteButtonVisibility}
-                                delete={handleDelete}
-
-                            /></ReactModal>
-                    </div>}/>
+                                date={date}
+                setDate={setDate}
+                cancel={closeModalUpdate}
+                visibilityDeleteButton={deleteButtonVisibility}
+                delete={handleDelete}
+            /></ReactModal></div>}/>
 
                 </Route>
 

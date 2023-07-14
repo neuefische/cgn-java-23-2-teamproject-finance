@@ -12,7 +12,7 @@ export default function TransactionCard(props: Props) {
 
 
     function createData(
-        date: string,
+        date: Date,
         description: string,
         category: string,
         amount: string,
@@ -29,7 +29,7 @@ export default function TransactionCard(props: Props) {
     }
 
     const rows = [
-        createData('Currywurst', props.transaction.description, props.transaction.category, props.transaction.amount,)
+        createData(props.transaction.date, props.transaction.description, props.transaction.category, props.transaction.amount,)
     ];
 
 
@@ -37,13 +37,13 @@ export default function TransactionCard(props: Props) {
         <TableBody>
             {rows.map((row) => (
                 <TableRow
-                    key={row.date}
+                    key={row.date.toISOString()}
                     sx={{'&:last-child td, &:last-child th': {border: 0}}}
                 >
-                    <TableCell component="th" scope="row">{row.date}</TableCell>
+                    <TableCell component="th" scope="row">{row.date.toISOString()}</TableCell>
                     <TableCell align="right">{row.description}</TableCell>
                     <TableCell align="right">{row.categoryGerman}</TableCell>
-                    <TableCell align="right">{row.amount}</TableCell>
+                    <TableCell align="right">{row.amount} €</TableCell>
                     <TableCell align="right">
                         <button className={"button1"} onClick={props.update}>Buchung Ändern</button>
                     </TableCell>

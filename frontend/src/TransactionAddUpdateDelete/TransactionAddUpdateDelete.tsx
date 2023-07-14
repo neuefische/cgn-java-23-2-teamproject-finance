@@ -1,5 +1,8 @@
 import React, {ChangeEvent, FormEvent, useState} from "react";
 import "./TransactionAddUpdateDelete.css"
+import {DatePicker, LocalizationProvider} from "@mui/x-date-pickers";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {DemoContainer} from "@mui/x-date-pickers/internals/demo";
 import {FormControlLabel, Radio, RadioGroup, TextField} from "@mui/material";
 
 
@@ -11,6 +14,8 @@ type Props = {
     amount: string,
     setCategory: (event: "INCOME" | "EXPENSE") => void,
     category: "INCOME" | "EXPENSE",
+    date: Date | null,
+    setDate: (event: Date | null) => void,
     cancel: () => void,
     delete: (event: React.MouseEvent<HTMLButtonElement>) => void,
     visibilityDeleteButton: boolean,
@@ -61,28 +66,35 @@ export default function TransactionAddUpdateDelete(props: Props) {
     }
 
 
+    // @ts-ignore
     return (
         <>
             <form onSubmit={props.submit}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DemoContainer components={['DatePicker']}>
+                        <DatePicker label="Basic date picker"
+                                    value={props.date}
+                                    onChange={(event: Date | null) => props.setDate(event)}/>
+                    </DemoContainer>
+                </LocalizationProvider>
+
                 <div className={"row"}>
 
 
                     <TextField
                         error={descriptionIsError}
-                        helperText={descriptionIsError && "Die Eingabe entspricht nicht den Vorgaben"}
-                        type="text"
+                        helperText={descriptionIsError && "Die Eingabe entspricht nicht den Vorgaben"}type="text"
                         required
                         id="outlined-required"
                         label="Beschreibung"
                         value={props.description}
                         onChange={handleChangeDescription}
-
                     />
 
                     <TextField
                         error={amountIsError}
-                        helperText={amountIsError && "Die Eingabe entspricht nicht den Vorgaben"}
-                        type="number"
+                        helperText={amountIsError && "Die Eingabe entspricht nicht den Vorgaben"}type="number"
+
                         required
                         id="outlined-required"
                         label="Betrag"
