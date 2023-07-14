@@ -21,6 +21,7 @@ export default function TransactionAddUpdateDelete(props: Props) {
 
     const [descriptionIsError, setDescriptionIsError] = useState(false)
     const [amountIsError, setAmountIsError] = useState(false)
+    const [saveButtonError, setSaveButtonError] = useState(true)
 
 
     const handleCategoryChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -32,8 +33,13 @@ export default function TransactionAddUpdateDelete(props: Props) {
 
         if (event.target.value.length <= 5 && event.target.value.length > 0) {
             setDescriptionIsError(true)
+            setSaveButtonError(true)
         } else {
             setDescriptionIsError(false)
+            setSaveButtonError(false)
+        }
+        if (event.target.value.length === 0) {
+            setSaveButtonError(true)
         }
     }
 
@@ -42,8 +48,15 @@ export default function TransactionAddUpdateDelete(props: Props) {
 
         if (parseInt(event.target.value) <= 0) {
             setAmountIsError(true)
+            setSaveButtonError(true)
+
         } else {
             setAmountIsError(false)
+            setSaveButtonError(false)
+
+        }
+        if (event.target.value === undefined) {
+            setSaveButtonError(true)
         }
     }
 
@@ -93,7 +106,7 @@ export default function TransactionAddUpdateDelete(props: Props) {
                     </RadioGroup>
                 </div>
                 <div className={"row"}>
-                    {!descriptionIsError && (<button>Speichern</button>)}
+                    <button disabled={saveButtonError}>Speichern</button>
 
                     <button onClick={props.cancel}>Abbrechen</button>
                     {props.visibilityDeleteButton && (
