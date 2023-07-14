@@ -63,7 +63,6 @@ export default function App() {
                 setAmount("")
                 setDescription("")
                 setCategory("INCOME")
-
             }
         ).catch(console.error)
             .then(loadTransactions)

@@ -66,7 +66,6 @@ export default function TransactionAddUpdateDelete(props: Props) {
     }
 
 
-    // @ts-ignore
     return (
         <>
             <form onSubmit={props.submit}>
