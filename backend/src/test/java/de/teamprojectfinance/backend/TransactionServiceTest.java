@@ -24,9 +24,9 @@ class TransactionServiceTest {
     void whenTransactionAdded_ThenReturnTransaction() {
         //Gvien
 
-        TransactionWithNoId givenTestModel = new TransactionWithNoId("test", (new BigDecimal(23)), TransactionCategory.INCOME, (new Date(2023-07-14)));
-        Transaction givenTestModelRepo = new Transaction("01A", "test", (new BigDecimal(23)), TransactionCategory.INCOME, (new Date(2023-07-14)));
-        Transaction givenTestModel1 = new Transaction("01A", "test", (new BigDecimal(23)), TransactionCategory.INCOME, (new Date(2023-07-14)));
+        TransactionWithNoId givenTestModel = new TransactionWithNoId("test", (new BigDecimal(23)), TransactionCategory.INCOME, (new Date(2023-7-14)));
+        Transaction givenTestModelRepo = new Transaction("01A", "test", (new BigDecimal(23)), TransactionCategory.INCOME, (new Date(2023-7-14)));
+        Transaction givenTestModel1 = new Transaction("01A", "test", (new BigDecimal(23)), TransactionCategory.INCOME, (new Date(2023-7-14)));
 
 
         //When
@@ -48,8 +48,8 @@ class TransactionServiceTest {
     void whenListNotEmpty_ThenReturnList() {
         // Given
         List<Transaction> transactions = List.of(
-                new Transaction("2B", "test2", (new BigDecimal(23)), TransactionCategory.INCOME, (new Date(2023-07-14))),
-                new Transaction("3C", "test3", (new BigDecimal(23)), TransactionCategory.EXPENSE, (new Date(2023-07-14)))
+                new Transaction("2B", "test2", (new BigDecimal(23)), TransactionCategory.INCOME, (new Date(2023-7-14))),
+                new Transaction("3C", "test3", (new BigDecimal(23)), TransactionCategory.EXPENSE, (new Date(2023-7-14)))
         );
 
 
@@ -66,13 +66,13 @@ class TransactionServiceTest {
     @Test
     void whenUpdateATransactionReturnUpdatedTransaction() {
         //Given
-        TransactionWithNoId transactionWithNoId = new TransactionWithNoId("test", (new BigDecimal(42)), TransactionCategory.INCOME, (new Date(2023-07-14)));
+        TransactionWithNoId transactionWithNoId = new TransactionWithNoId("test", (new BigDecimal(42)), TransactionCategory.INCOME, (new Date(2023-7-14)));
         String id = "0123";
         //When
 
         when(transactionRepo.save(new Transaction(id, transactionWithNoId.getDescription(), transactionWithNoId.getAmount(), transactionWithNoId.getCategory(), dtoTransaction.getDate())))
-                .thenReturn(new Transaction("0123", "test", (new BigDecimal(13)), TransactionCategory.INCOME, (new Date(2023-07-14))));
-        Transaction expected = new Transaction("0123", "test", (new BigDecimal(13)), TransactionCategory.INCOME, (new Date(2023-07-14)));
+                .thenReturn(new Transaction("0123", "test", (new BigDecimal(13)), TransactionCategory.INCOME, (new Date(2023-7-14))));
+        Transaction expected = new Transaction("0123", "test", (new BigDecimal(13)), TransactionCategory.INCOME, (new Date(2023-7-14)));
         Transaction actual = transactionService.updateTransaction(transactionWithNoId, id);
         //Then
         verify(transactionRepo).save(any());
