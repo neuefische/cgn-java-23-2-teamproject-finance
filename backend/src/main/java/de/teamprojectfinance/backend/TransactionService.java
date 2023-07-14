@@ -18,7 +18,7 @@ public class TransactionService {
     }
 
     public Transaction addTransaction(TransactionWithNoId transactionWithNoId) {
-        return transactionRepo.insert(new Transaction(idService.createRandomId(), transactionWithNoId.getDescription(), transactionWithNoId.getAmount(), transactionWithNoId.getCategory()));
+        return transactionRepo.insert(new Transaction(idService.createRandomId(), transactionWithNoId.getDescription(), transactionWithNoId.getAmount(), transactionWithNoId.getCategory(), dtoTransaction.getDate()));
     }
 
 
@@ -30,7 +30,7 @@ public class TransactionService {
     public Transaction updateTransaction(TransactionWithNoId transactionWithNoId, String id){
 
         return transactionRepo.save(new Transaction(id, transactionWithNoId.getDescription(),
-                transactionWithNoId.getAmount(), transactionWithNoId.getCategory()));
+                transactionWithNoId.getAmount(), transactionWithNoId.getCategory(), dtoTransaction.getDate()));
     }
 
 

@@ -12,6 +12,9 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -37,7 +40,8 @@ class TransactionIntegrationTest {
                                         {
                                             "description": "test123",
                                             "amount": "13",
-                                            "category": "INCOME"
+                                            "category": "INCOME",
+                                            "date": "2023-07-14T00:00:00.000+00:00"
                                         }
                                         """
                                 )
@@ -49,7 +53,7 @@ class TransactionIntegrationTest {
                 .andExpect(jsonPath("id").isNotEmpty())
                 .andExpect(jsonPath("amount").value("13"))
                 .andExpect(jsonPath("description").value("test123"))
-                .andExpect(jsonPath("category").value("INCOME"));
+                .andExpect(jsonPath("date").value("2023-07-14T00:00:00.000+00:00"));
 
 
     }
@@ -87,7 +91,8 @@ class TransactionIntegrationTest {
                                         {
                                             "description": "test123",
                                             "amount": "13",
-                                            "category": "INCOME"
+                                            "category": "INCOME",
+                                            "date": "2023-07-14T00:00:00.000+00:00"
                                         }
                                         """
                                 ).with(csrf())
@@ -97,7 +102,8 @@ class TransactionIntegrationTest {
                 .andExpect(jsonPath("id").value("0123"))
                 .andExpect(jsonPath("amount").value("13"))
                 .andExpect(jsonPath("description").value("test123"))
-                .andExpect(jsonPath("category").value("INCOME"));
+                .andExpect(jsonPath("category").value("INCOME"))
+                .andExpect(jsonPath("date").value("2023-07-14T00:00:00.000+00:00"));
     }
 
     @DirtiesContext
