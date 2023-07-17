@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DtoTransaction {
+public class TransactionWithNoId {
 
     @NotBlank
     @Size(min = 6, max = 128, message = "Benutzername muss zwischen 6 und 128 Zeichen lang sein")

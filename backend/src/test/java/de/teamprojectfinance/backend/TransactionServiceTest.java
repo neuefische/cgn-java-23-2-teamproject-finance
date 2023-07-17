@@ -23,7 +23,7 @@ class TransactionServiceTest {
     void whenTransactionAdded_ThenReturnTransaction() {
         //Gvien
 
-        DtoTransaction givenTestModel = new DtoTransaction("test", 23, TransactionCategory.INCOME);
+        TransactionWithNoId givenTestModel = new TransactionWithNoId("test", 23, TransactionCategory.INCOME);
         Transaction givenTestModelRepo = new Transaction("01A", "test", 23, TransactionCategory.INCOME);
         Transaction givenTestModel1 = new Transaction("01A", "test", 23, TransactionCategory.INCOME);
 
@@ -67,14 +67,14 @@ class TransactionServiceTest {
     @Test
     void whenUpdateATransactionReturnUpdatedTransaction(){
         //Given
-        DtoTransaction dtoTransaction = new DtoTransaction("test", 42, TransactionCategory.INCOME);
+        TransactionWithNoId transactionWithNoId = new TransactionWithNoId("test", 42, TransactionCategory.INCOME);
         String id = "0123";
         //When
 
-        Mockito.when(transactionRepo.save(new Transaction(id, dtoTransaction.getDescription(), dtoTransaction.getAmount(), dtoTransaction.getCategory())))
+        Mockito.when(transactionRepo.save(new Transaction(id, transactionWithNoId.getDescription(), transactionWithNoId.getAmount(), transactionWithNoId.getCategory())))
                 .thenReturn(new Transaction("0123", "test", 13, TransactionCategory.INCOME));
         Transaction expected = new Transaction("0123", "test", 13, TransactionCategory.INCOME);
-        Transaction actual = transactionService.updateTransaction(dtoTransaction, id);
+        Transaction actual = transactionService.updateTransaction(transactionWithNoId, id);
         //Then
         verify(transactionRepo).save(any());
         assertEquals(expected, actual);
