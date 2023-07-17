@@ -37,7 +37,7 @@ class TransactionIntegrationTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content("""
                                         {
-                                            "description": "test",
+                                            "description": "test123",
                                             "amount": "13",
                                             "category": "INCOME"
                                         }
@@ -50,7 +50,7 @@ class TransactionIntegrationTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("id").isNotEmpty())
                 .andExpect(jsonPath("amount").value("13"))
-                .andExpect(jsonPath("description").value("test"))
+                .andExpect(jsonPath("description").value("test123"))
                 .andExpect(jsonPath("category").value("INCOME"));
 
 
@@ -88,7 +88,7 @@ class TransactionIntegrationTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content("""
                                         {
-                                            "description": "test",
+                                            "description": "test123",
                                             "amount": "13",
                                             "category": "INCOME"
                                         }
@@ -99,7 +99,7 @@ class TransactionIntegrationTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("id").value("0123"))
                 .andExpect(jsonPath("amount").value("13"))
-                .andExpect(jsonPath("description").value("test"))
+                .andExpect(jsonPath("description").value("test123"))
                 .andExpect(jsonPath("category").value("INCOME"));
     }
 
@@ -114,7 +114,7 @@ class TransactionIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                         {  \s
-                                            "description": "test",
+                                            "description": "test123",
                                             "amount": "1234",
                                             "category": "INCOME"
                                         }

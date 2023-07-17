@@ -15,8 +15,8 @@ public class TransactionService {
         this.idService = idService;
     }
 
-    public Transaction addTransaction(DtoTransaction dtoTransaction) {
-        return transactionRepo.insert(new Transaction(idService.createRandomId(),dtoTransaction.getDescription(), dtoTransaction.getAmount(), dtoTransaction.getCategory()));
+    public Transaction addTransaction(TransactionWithNoId transactionWithNoId) {
+        return transactionRepo.insert(new Transaction(idService.createRandomId(), transactionWithNoId.getDescription(), transactionWithNoId.getAmount(), transactionWithNoId.getCategory()));
     }
 
 
@@ -25,9 +25,9 @@ public class TransactionService {
     }
 
 
-    public Transaction updateTransaction(DtoTransaction dtoTransaction, String id){
+    public Transaction updateTransaction(TransactionWithNoId transactionWithNoId, String id){
 
-        return transactionRepo.save(new Transaction(id,dtoTransaction.getDescription(), dtoTransaction.getAmount(), dtoTransaction.getCategory()));
+        return transactionRepo.save(new Transaction(id, transactionWithNoId.getDescription(), transactionWithNoId.getAmount(), transactionWithNoId.getCategory()));
     }
 
 

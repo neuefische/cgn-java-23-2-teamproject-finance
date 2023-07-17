@@ -27,6 +27,7 @@ export default function App() {
     const [user, setUser] = useState<string>()
     const navigate = useNavigate()
 
+
     function loadTransactions() {
         axios.get(
             "/api/finance/")
@@ -200,6 +201,7 @@ export default function App() {
                                                         cancel={closeModalAdd}
                                                         visibilityDeleteButton={deleteButtonVisibility}
                                                         delete={handleDelete}
+
                             /></ReactModal>
 
 
@@ -220,6 +222,7 @@ export default function App() {
                                 cancel={closeModalUpdate}
                                 visibilityDeleteButton={deleteButtonVisibility}
                                 delete={handleDelete}
+
                             /></ReactModal>
                     </div>}/>
 

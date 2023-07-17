@@ -1,5 +1,6 @@
 package de.teamprojectfinance.backend;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
