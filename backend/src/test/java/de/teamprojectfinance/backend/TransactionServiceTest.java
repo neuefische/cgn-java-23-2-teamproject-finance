@@ -3,7 +3,6 @@ package de.teamprojectfinance.backend;
 import org.junit.jupiter.api.Test;
 
 
-
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -52,8 +51,6 @@ class TransactionServiceTest {
         );
 
 
-
-
         // When
         when(transactionRepo.findAll())
                 .thenReturn(transactions);
@@ -65,7 +62,7 @@ class TransactionServiceTest {
     }
 
     @Test
-    void whenUpdateATransactionReturnUpdatedTransaction(){
+    void whenUpdateATransactionReturnUpdatedTransaction() {
         //Given
         TransactionWithNoId transactionWithNoId = new TransactionWithNoId("test", 42, TransactionCategory.INCOME);
         String id = "0123";
@@ -81,22 +78,21 @@ class TransactionServiceTest {
     }
 
     @Test
-    void deleteTransactionWhenTransactionIsNotExisting(){
+    void deleteTransactionWhenTransactionIsNotExisting() {
         //given
 
         String id = "abc";
         //when
 
 
-       assertThrows(NoSuchElementException.class, ()-> transactionService.deleteTransaction(id));
-        //then
+        assertThrows(NoSuchElementException.class, () -> transactionService.deleteTransaction(id));
+
 
     }
 
     @Test
-    void deleteTransactionWhenTransactionIsExisting(){
+    void deleteTransactionWhenTransactionIsExisting() {
         //given
-
         String id = "abc";
         //when
         when(transactionRepo.existsById(id))

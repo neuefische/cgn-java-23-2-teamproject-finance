@@ -29,8 +29,6 @@ class TransactionIntegrationTest {
     @Test
     @WithMockUser
     void WhenAddingPosting_ThenReturnPosting() throws Exception {
-        //Given
-
         //When
         mockMvc.perform(
                         MockMvcRequestBuilders.post("/api/finance/")
@@ -60,7 +58,6 @@ class TransactionIntegrationTest {
     @Test
     @WithMockUser
     void whenListEmpty_ThenReturnEmptyList() throws Exception {
-        // GIVEN
         // WHEN
         mockMvc.perform(
                         MockMvcRequestBuilders.get("/api/finance/")
@@ -148,14 +145,15 @@ class TransactionIntegrationTest {
     @DirtiesContext
     @WithMockUser
     void testHandleException() throws Exception {
-        // Arrange
+        // GIVEN
         String errorMessage = "Invalid input! ";
         String invalidId = "123";
 
-        // Act & Assert
+        //WHEN
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/finance/" + invalidId)
                         .with(csrf())
                 )
+                //THEN
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").value(errorMessage));

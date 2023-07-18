@@ -43,13 +43,9 @@ public class TransactionController {
     }
 
 
-    @ExceptionHandler({NoSuchElementException.class})
+    @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handleException() {
         return new ErrorMessage("Invalid input! ");
     }
-
-
-
-
 }
