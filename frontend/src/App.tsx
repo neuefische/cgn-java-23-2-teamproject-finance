@@ -176,9 +176,6 @@ export default function App() {
 
     }
 
-    console.log(Date.parse(date))
-    console.log(date)
-    console.log(new Date(date))
 
     return (
 
@@ -194,7 +191,8 @@ export default function App() {
                     <Route path="/" element={<div>
 
                         <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
-                        <IconButton disableRipple={true} size="small" className={"buttonAdd"} onClick={openModalAdd}><AddCircle
+                        <IconButton disableRipple={true} size="small" className={"buttonAdd"}
+                                    onClick={openModalAdd}><AddCircle
                             fontSize={"large"}/></IconButton>
 
 
@@ -242,8 +240,7 @@ export default function App() {
 
                 </Route>
 
-                    </div>}/>
-                </Route>
+
                 <Route path="/login" element={<LoginPage login={login}/>}/>
             </Routes>
 
@@ -252,5 +249,3 @@ export default function App() {
 
     )
 }
-
-

@@ -52,7 +52,7 @@ export default function TransactionAddUpdateDelete(props: Props) {
     }
 
     const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.setAmount(parseInt(event.target.value))
+        props.setAmount(event.target.value)
 
         if (parseInt(event.target.value) <= 0) {
             setAmountIsError(true)
