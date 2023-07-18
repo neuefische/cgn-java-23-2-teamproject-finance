@@ -29,8 +29,6 @@ class TransactionIntegrationTest {
     @Test
     @WithMockUser
     void WhenAddingPosting_ThenReturnPosting() throws Exception {
-        //Given
-
         //When
         mockMvc.perform(
                         MockMvcRequestBuilders.post("/api/finance/")
@@ -60,7 +58,6 @@ class TransactionIntegrationTest {
     @Test
     @WithMockUser
     void whenListEmpty_ThenReturnEmptyList() throws Exception {
-        // GIVEN
         // WHEN
         mockMvc.perform(
                         MockMvcRequestBuilders.get("/api/finance/")
@@ -109,20 +106,20 @@ class TransactionIntegrationTest {
     void WhenDeleteATransactionThenReturnEmptyList() throws Exception {
         //Given
 
-        String saveResult =   mockMvc.perform(
-                  MockMvcRequestBuilders.post("/api/finance/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("""
+        String saveResult = mockMvc.perform(
+                        MockMvcRequestBuilders.post("/api/finance/")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("""
                                         {  \s
                                             "description": "test123",
                                             "amount": "1234",
                                             "category": "INCOME"
                                         }
                                         """
-                        )
+                                )
 
-                        .with(csrf())
-        )
+                                .with(csrf())
+                )
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
@@ -142,4 +139,26 @@ class TransactionIntegrationTest {
                             []
                         """));
     }
+
+
+    @Test
+    @DirtiesContext
+    @WithMockUser
+    void testHandleException() throws Exception {
+        // GIVEN
+        String errorMessage = "Invalid input! ";
+        String invalidId = "123";
+
+        //WHEN
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/finance/" + invalidId)
+                        .with(csrf())
+                )
+                //THEN
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").value(errorMessage));
+    }
 }
+
+
+

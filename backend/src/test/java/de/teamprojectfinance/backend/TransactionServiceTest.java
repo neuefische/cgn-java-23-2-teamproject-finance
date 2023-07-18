@@ -1,15 +1,14 @@
 package de.teamprojectfinance.backend;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 
 class TransactionServiceTest {
@@ -29,9 +28,9 @@ class TransactionServiceTest {
 
 
         //When
-        Mockito.when(transactionRepo.insert(givenTestModelRepo))
+        when(transactionRepo.insert(givenTestModelRepo))
                 .thenReturn(givenTestModelRepo);
-        Mockito.when(idService.createRandomId())
+        when(idService.createRandomId())
                 .thenReturn("01A");
 
         Transaction actualModel = transactionService.addTransaction(givenTestModel);
@@ -52,10 +51,8 @@ class TransactionServiceTest {
         );
 
 
-
-
         // When
-        Mockito.when(transactionRepo.findAll())
+        when(transactionRepo.findAll())
                 .thenReturn(transactions);
         List<Transaction> actualModelList = transactionService.getAllTransactions();
         // Then
@@ -65,13 +62,13 @@ class TransactionServiceTest {
     }
 
     @Test
-    void whenUpdateATransactionReturnUpdatedTransaction(){
+    void whenUpdateATransactionReturnUpdatedTransaction() {
         //Given
         TransactionWithNoId transactionWithNoId = new TransactionWithNoId("test", 42, TransactionCategory.INCOME);
         String id = "0123";
         //When
 
-        Mockito.when(transactionRepo.save(new Transaction(id, transactionWithNoId.getDescription(), transactionWithNoId.getAmount(), transactionWithNoId.getCategory())))
+        when(transactionRepo.save(new Transaction(id, transactionWithNoId.getDescription(), transactionWithNoId.getAmount(), transactionWithNoId.getCategory())))
                 .thenReturn(new Transaction("0123", "test", 13, TransactionCategory.INCOME));
         Transaction expected = new Transaction("0123", "test", 13, TransactionCategory.INCOME);
         Transaction actual = transactionService.updateTransaction(transactionWithNoId, id);
@@ -81,12 +78,29 @@ class TransactionServiceTest {
     }
 
     @Test
-    void deleteTransactionWhenTransactionIsExisting(){
+    void deleteTransactionWhenTransactionIsNotExisting() {
+        //given
+
+        String id = "abc";
+        //when
+
+
+        assertThrows(NoSuchElementException.class, () -> transactionService.deleteTransaction(id));
+
+
+    }
+
+    @Test
+    void deleteTransactionWhenTransactionIsExisting() {
         //given
         String id = "abc";
         //when
+        when(transactionRepo.existsById(id))
+                .thenReturn(true);
+        doNothing().when(transactionRepo).deleteById("123");
         transactionService.deleteTransaction(id);
         //then
         verify(transactionRepo).deleteById(id);
+
     }
 }

@@ -3,6 +3,8 @@ package de.teamprojectfinance.backend;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+
 
 @Service
 public class TransactionService {
@@ -27,11 +29,13 @@ public class TransactionService {
 
     public Transaction updateTransaction(TransactionWithNoId transactionWithNoId, String id){
 
-        return transactionRepo.save(new Transaction(id, transactionWithNoId.getDescription(), transactionWithNoId.getAmount(), transactionWithNoId.getCategory()));
+        return transactionRepo.save(new Transaction(id, transactionWithNoId.getDescription(),
+                transactionWithNoId.getAmount(), transactionWithNoId.getCategory()));
     }
 
 
     public void deleteTransaction(String id) {
+        if (!transactionRepo.existsById(id)) throw new NoSuchElementException();
         transactionRepo.deleteById(id);
     }
 }
