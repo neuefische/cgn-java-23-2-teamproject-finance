@@ -109,20 +109,20 @@ class TransactionIntegrationTest {
     void WhenDeleteATransactionThenReturnEmptyList() throws Exception {
         //Given
 
-        String saveResult =   mockMvc.perform(
-                  MockMvcRequestBuilders.post("/api/finance/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("""
+        String saveResult = mockMvc.perform(
+                        MockMvcRequestBuilders.post("/api/finance/")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("""
                                         {  \s
                                             "description": "test123",
                                             "amount": "1234",
                                             "category": "INCOME"
                                         }
                                         """
-                        )
+                                )
 
-                        .with(csrf())
-        )
+                                .with(csrf())
+                )
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
@@ -142,4 +142,25 @@ class TransactionIntegrationTest {
                             []
                         """));
     }
+
+
+    @Test
+    @DirtiesContext
+    @WithMockUser
+    void testHandleException() throws Exception {
+        // Arrange
+        String errorMessage = "Invalid input! ";
+        String invalidId = "123";
+
+        // Act & Assert
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/finance/" + invalidId)
+                        .with(csrf())
+                )
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").value(errorMessage));
+    }
 }
+
+
+
