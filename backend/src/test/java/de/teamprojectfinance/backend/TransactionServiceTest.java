@@ -70,7 +70,7 @@ class TransactionServiceTest {
         String id = "0123";
         //When
 
-        when(transactionRepo.save(new Transaction(id, transactionWithNoId.getDescription(), transactionWithNoId.getAmount(), transactionWithNoId.getCategory(), dtoTransaction.getDate())))
+        when(transactionRepo.save(new Transaction(id, transactionWithNoId.getDescription(), transactionWithNoId.getAmount(), transactionWithNoId.getCategory(), transactionWithNoId.getDate())))
                 .thenReturn(new Transaction("0123", "test", (new BigDecimal(13)), TransactionCategory.INCOME, (new Date(2023-7-14))));
         Transaction expected = new Transaction("0123", "test", (new BigDecimal(13)), TransactionCategory.INCOME, (new Date(2023-7-14)));
         Transaction actual = transactionService.updateTransaction(transactionWithNoId, id);
