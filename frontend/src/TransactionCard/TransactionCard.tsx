@@ -1,6 +1,8 @@
 import {Transaction} from "../model/model.ts";
-import {TableBody, TableCell, TableRow,} from "@mui/material";
+import {IconButton, TableBody, TableCell, TableRow,} from "@mui/material";
 import "./TransactionCard.css";
+import EditIcon from '@mui/icons-material/Edit';
+
 
 type Props = {
     transaction: Transaction;
@@ -18,8 +20,8 @@ export default function TransactionCard(props: Props) {
         amount: string,
     ) {
 
-        let categoryGerman ;
-        if (category === "INCOME"){
+        let categoryGerman;
+        if (category === "INCOME") {
             categoryGerman = "Einnahme"
         } else {
             categoryGerman = "Ausgabe"
@@ -45,7 +47,7 @@ export default function TransactionCard(props: Props) {
                     <TableCell align="right">{row.categoryGerman}</TableCell>
                     <TableCell align="right">{row.amount} €</TableCell>
                     <TableCell align="right">
-                        <button className={"button1"} onClick={props.update}>Buchung Ändern</button>
+                        <IconButton disableRipple={true} className={"buttonEdit"} onClick={props.update}><EditIcon/></ IconButton>
                     </TableCell>
                 </TableRow>
             ))}

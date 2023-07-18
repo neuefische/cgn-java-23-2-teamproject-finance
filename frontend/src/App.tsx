@@ -1,14 +1,15 @@
 import TransactionAddUpdateDelete from "./TransactionAddUpdateDelete/TransactionAddUpdateDelete.tsx";
 import React, {FormEvent, useEffect, useState} from "react";
-import axios from "axios";
 import {Transaction} from "./model/model.ts";
 import TransactionCollection from "./TransactionCollection/TransactionCollection.tsx";
-
 import ReactModal from "react-modal";
 import LoginPage from "./LoginPage/LoginPage.tsx";
 import {Route, Routes, useNavigate} from "react-router-dom";
 import ProtectedRoutes from "./protectedRoutes/ProtectedRoutes.tsx";
-
+import {IconButton} from "@mui/material";
+import {AddCircle} from "@mui/icons-material";
+import './App.css';
+import axios from "axios";
 
 export default function App() {
 
@@ -177,7 +178,7 @@ export default function App() {
 
     console.log(Date.parse(date))
     console.log(date)
-    console.log(new Date (date))
+    console.log(new Date(date))
 
     return (
 
@@ -193,7 +194,8 @@ export default function App() {
                     <Route path="/" element={<div>
 
                         <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
-                        <button className={"buttonAdd"} onClick={openModalAdd}>Buchung Anlegen</button>
+                        <IconButton disableRipple={true} size="small" className={"buttonAdd"} onClick={openModalAdd}><AddCircle
+                            fontSize={"large"}/></IconButton>
 
 
                         <ReactModal
