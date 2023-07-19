@@ -10,6 +10,7 @@ import {IconButton} from "@mui/material";
 import {AddCircle} from "@mui/icons-material";
 import './App.css';
 import axios from "axios";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export default function App() {
 
@@ -141,6 +142,15 @@ export default function App() {
 
     }
 
+    function logout() {
+        axios.post("/api/users/logout")
+            .catch(console.error)
+            .then(()=>{
+                setUser("anonymousUser")
+            })
+
+    }
+
     function me() {
         axios.get("/api/users/me2")
             .then(response => {
@@ -182,14 +192,15 @@ export default function App() {
         <>
             <div>
                 <h1>Finanzen virtuelles Tierheim</h1>
-                <p>{user}</p>
+
             </div>
 
             <Routes>
                 <Route element={<ProtectedRoutes user={user}/>}>
 
                     <Route path="/" element={<div>
-
+                        <p>{user}</p>
+                        <IconButton disableRipple={true} size="small" className={"buttonAdd"} onClick={logout}><LogoutIcon/></IconButton>
                         <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
                         <IconButton disableRipple={true} size="small" className={"buttonAdd"}
                                     onClick={openModalAdd}><AddCircle

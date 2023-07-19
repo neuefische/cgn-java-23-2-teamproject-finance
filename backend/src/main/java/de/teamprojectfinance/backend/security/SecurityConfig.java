@@ -40,7 +40,8 @@ public class SecurityConfig {
 
                                .anyRequest().permitAll()
                 )
-
+//                .logout(logout -> logout.logoutUrl("/api/users/logout")
+//                        .deleteCookies("JSESSIONID"))
                 .build();
     }
 
