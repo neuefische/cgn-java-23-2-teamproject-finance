@@ -1,6 +1,8 @@
 import {Transaction} from "../model/model.ts";
-import {TableBody, TableCell, TableRow,} from "@mui/material";
+import {IconButton, TableBody, TableCell, TableRow,} from "@mui/material";
 import "./TransactionCard.css";
+import EditIcon from '@mui/icons-material/Edit';
+
 
 type Props = {
     transaction: Transaction;
@@ -15,11 +17,11 @@ export default function TransactionCard(props: Props) {
         date: string,
         description: string,
         category: string,
-        amount: number,
+        amount: string,
     ) {
 
-        let categoryGerman = "";
-        if (category === "INCOME"){
+        let categoryGerman;
+        if (category === "INCOME") {
             categoryGerman = "Einnahme"
         } else {
             categoryGerman = "Ausgabe"
@@ -29,7 +31,7 @@ export default function TransactionCard(props: Props) {
     }
 
     const rows = [
-        createData('Currywurst', props.transaction.description, props.transaction.category, props.transaction.amount,)
+        createData(props.transaction.date, props.transaction.description, props.transaction.category, props.transaction.amount,)
     ];
 
 
@@ -37,15 +39,15 @@ export default function TransactionCard(props: Props) {
         <TableBody>
             {rows.map((row) => (
                 <TableRow
-                    key={row.date}
+                    key={row.date.toLocaleString()}
                     sx={{'&:last-child td, &:last-child th': {border: 0}}}
                 >
-                    <TableCell component="th" scope="row">{row.date}</TableCell>
+                    <TableCell component="th" scope="row">{row.date.toLocaleString()}</TableCell>
                     <TableCell align="right">{row.description}</TableCell>
                     <TableCell align="right">{row.categoryGerman}</TableCell>
-                    <TableCell align="right">{row.amount}</TableCell>
+                    <TableCell align="right">{row.amount} €</TableCell>
                     <TableCell align="right">
-                        <button className={"button1"} onClick={props.update}>Buchung Ändern</button>
+                        <IconButton disableRipple={true} className={"buttonEdit"} onClick={props.update}><EditIcon/></ IconButton>
                     </TableCell>
                 </TableRow>
             ))}

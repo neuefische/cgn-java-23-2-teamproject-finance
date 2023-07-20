@@ -1,26 +1,28 @@
 import TransactionAddUpdateDelete from "./TransactionAddUpdateDelete/TransactionAddUpdateDelete.tsx";
 import React, {FormEvent, useEffect, useState} from "react";
-import axios from "axios";
 import {Transaction} from "./model/model.ts";
 import TransactionCollection from "./TransactionCollection/TransactionCollection.tsx";
-
 import ReactModal from "react-modal";
 import LoginPage from "./LoginPage/LoginPage.tsx";
 import {Route, Routes, useNavigate} from "react-router-dom";
 import ProtectedRoutes from "./protectedRoutes/ProtectedRoutes.tsx";
-
+import {IconButton} from "@mui/material";
+import {AddCircle} from "@mui/icons-material";
+import './App.css';
+import axios from "axios";
 
 export default function App() {
 
 
     const [description, setDescription] = useState<string>("");
-    const [amount, setAmount] = useState<number | null>(null);
+    const [amount, setAmount] = useState("");
     const [category, setCategory] = useState<"INCOME" | "EXPENSE">("INCOME");
     const [id, setId] = useState<string>("")
+    const [date, setDate] = useState<string | null>(null)
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [deleteButtonVisibility, setDeleteButtonVisibility] = useState(false);
     const [selectedDescription, setSelectedDescription] = useState<string>("")
-    const [selectedAmount, setSelectedAmount] = useState<number>(0)
+    const [selectedAmount, setSelectedAmount] = useState("")
     const [selectedCategory, setSelectedCategory] = useState<"INCOME" | "EXPENSE">("INCOME")
     const [isModalAddOpen, setIsModalAddOpen] = useState(false);
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
@@ -57,12 +59,13 @@ export default function App() {
                 "description": description,
                 "amount": amount,
                 "category": category,
+                "date": date
             }
         ).then(() => {
-                setAmount(0)
+                setAmount("")
                 setDescription("")
                 setCategory("INCOME")
-
+                setDate(null)
             }
         ).catch(console.error)
             .then(loadTransactions)
@@ -78,6 +81,7 @@ export default function App() {
             setSelectedAmount(selectedTransaction.amount)
             setSelectedCategory(selectedTransaction.category)
             setId(selectedTransaction.id)
+            setDate(selectedTransaction.date)
             setDeleteButtonVisibility(true);
         } else {
             throw DOMException
@@ -95,12 +99,14 @@ export default function App() {
             "/api/finance/" + id, {
                 "description": selectedDescription,
                 "amount": selectedAmount,
-                "category": selectedCategory
+                "category": selectedCategory,
+                "date": date
             } as Transaction).then(() => {
                 setId("")
-                setSelectedAmount(0)
+                setSelectedAmount("")
                 setSelectedDescription("")
                 setSelectedCategory("INCOME")
+                setDate(null)
                 setDeleteButtonVisibility(false)
             }
         ).then(() => loadTransactions())
@@ -114,9 +120,10 @@ export default function App() {
             "/api/finance/" + id,
         ).then(() => {
                 setId("")
-                setSelectedAmount(0)
+                setSelectedAmount("")
                 setSelectedDescription("")
                 setSelectedCategory("INCOME")
+                setDate(null)
                 setDeleteButtonVisibility(false)
             }
         ).then(() => loadTransactions())
@@ -150,8 +157,9 @@ export default function App() {
     function closeModalAdd() {
         setIsModalAddOpen(false);
         setDescription("")
-        setAmount(0)
+        setAmount("")
         setCategory("INCOME")
+        setDate(null)
     }
 
     function openModalUpdate() {
@@ -161,8 +169,9 @@ export default function App() {
     function closeModalUpdate() {
         setIsModalUpdateOpen(false)
         setSelectedDescription("")
-        setSelectedAmount(0)
+        setSelectedAmount("")
         setSelectedCategory("INCOME")
+        setDate(null)
         setDeleteButtonVisibility(false);
 
     }
@@ -182,7 +191,9 @@ export default function App() {
                     <Route path="/" element={<div>
 
                         <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
-                        <button className={"buttonAdd"} onClick={openModalAdd}>Buchung Anlegen</button>
+                        <IconButton disableRipple={true} size="small" className={"buttonAdd"}
+                                    onClick={openModalAdd}><AddCircle
+                            fontSize={"large"}/></IconButton>
 
 
                         <ReactModal
@@ -198,10 +209,11 @@ export default function App() {
                                                         description={description}
                                                         category={category}
                                                         setCategory={setCategory}
+                                                        date={date}
+                                                        setDate={setDate}
                                                         cancel={closeModalAdd}
                                                         visibilityDeleteButton={deleteButtonVisibility}
                                                         delete={handleDelete}
-
                             /></ReactModal>
 
 
@@ -219,12 +231,12 @@ export default function App() {
                                 amount={selectedAmount}
                                 setCategory={setSelectedCategory}
                                 category={selectedCategory}
+                                date={date}
+                                setDate={setDate}
                                 cancel={closeModalUpdate}
                                 visibilityDeleteButton={deleteButtonVisibility}
                                 delete={handleDelete}
-
-                            /></ReactModal>
-                    </div>}/>
+                            /></ReactModal></div>}/>
 
                 </Route>
 
@@ -237,5 +249,3 @@ export default function App() {
 
     )
 }
-
-
