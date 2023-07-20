@@ -196,19 +196,22 @@ export default function App() {
 
         <>
 
-            <div>
-                <h1>Finanzen virtuelles Tierheim</h1>
+                <header>
+                <h2>Finanzen virtuelles Tierheim</h2>
+                    <h3>Buchungsliste</h3>
+                </header>
 
-            </div>
-
+            <main>
             <Routes>
                 <Route element={<ProtectedRoutes user={user}/>}>
 
                     <Route path="/" element={<div>
+                        <div className={"user"}>
                         <p>{user}</p>
                         <IconButton disableRipple={true} size="small" className={"buttonAdd"}
                                     onClick={logout}><LogoutIcon/></IconButton>
-                        <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
+                        </div>
+                        <TransactionCollection  transaction={transactions} update={initializeUpdateComponent} />
                         <IconButton disableRipple={true} size="small" className={"buttonAdd"}
                                     onClick={openModalAdd}><AddCircle
                             fontSize={"large"}/></IconButton>
@@ -261,7 +264,7 @@ export default function App() {
 
                 <Route path="/login" element={<LoginPage login={login}/>}/>
             </Routes>
-
+            </main>
         </>
 
 
