@@ -18,7 +18,7 @@ type Props = {
     setCategory: (event: "INCOME" | "EXPENSE") => void,
     category: "INCOME" | "EXPENSE",
     date: string | null,
-    setDate: (event: Date | null) => void,
+    setDate: (event: string | null) => void,
     cancel: () => void,
     delete: (event: React.MouseEvent<HTMLButtonElement>) => void,
     visibilityDeleteButton: boolean,
@@ -68,6 +68,17 @@ export default function TransactionAddUpdateDelete(props: Props) {
         }
     }
 
+    function convertDateToString(event: Date | null){
+        if (event){
+            const dateString = event.toString()
+            props.setDate(dateString)
+        }else{
+            props.setDate(null)
+        }
+
+    }
+
+
 
     return (
         <>
@@ -77,7 +88,7 @@ export default function TransactionAddUpdateDelete(props: Props) {
                     <DemoContainer components={['DatePicker']}>
                         <DatePicker label="Basic date picker"
                                     value={dayjs(props.date)}
-                                    onChange={(event: Date | null) => props.setDate(event)}/>
+                                    onChange={convertDateToString}/>
                     </DemoContainer>
                 </LocalizationProvider>
 
