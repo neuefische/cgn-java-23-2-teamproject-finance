@@ -17,7 +17,8 @@ export default function TransactionCard(props: Props) {
 
         return (
             <Card sx={{ minWidth: 275, margin: '16px' }}  >
-                <CardContent>
+                <CardContent style={{background:"lightblue"}}>
+
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                         {props.transaction.date.toLocaleString()}
                     </Typography>
