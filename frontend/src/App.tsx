@@ -12,6 +12,7 @@ import './App.css';
 import axios from "axios";
 import LogoutIcon from '@mui/icons-material/Logout';
 import * as dayjs from "dayjs";
+import Modal from 'react-modal';
 
 export default function App() {
 
@@ -45,6 +46,7 @@ export default function App() {
     useEffect(() => {
         loadTransactions()
         me()
+        Modal.setAppElement('#root')
     }, [])
 
 
@@ -193,6 +195,7 @@ export default function App() {
     return (
 
         <>
+
             <div>
                 <h1>Finanzen virtuelles Tierheim</h1>
 
