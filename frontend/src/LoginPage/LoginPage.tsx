@@ -19,11 +19,11 @@ export default function LoginPage(props: Props){
 
 
     return(
-        <form onSubmit={onLogin}>
-            <p>Login</p>
-            <input value={username} onChange={event => setUsername(event.target.value)} placeholder="Username"/>
+        <form onSubmit={onLogin} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
+            <input value={username} onChange={event => setUsername(event.target.value)} placeholder="Username" style={{margin: '10px'}}/>
             <input value={password} onChange={event => setPassword(event.target.value)} placeholder="Password" type={"password"}/>
-            <button>Login</button>
+            <button style={{margin: '10px'}}>Login</button>
         </form>
     )
 }
