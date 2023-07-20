@@ -14,7 +14,7 @@ export default function TransactionCollection(props: Props) {
             <div className={"transactionCollectionContainer"}>
                 <h2>Buchungsliste</h2>
                 {
-                    props.transaction.map((transaction) => <TransactionCard transaction={transaction} update={()=> props.update} key = {transaction.id}/>)
+                    props.transaction.map((transaction) => <TransactionCard transaction={transaction} update={()=> props.update(transaction.id)} key = {transaction.id}/>)
                 }
             </div>
         </>
