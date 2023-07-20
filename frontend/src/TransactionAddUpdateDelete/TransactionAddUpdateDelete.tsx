@@ -53,21 +53,27 @@ export default function TransactionAddUpdateDelete(props: Props) {
         }
     }
 
+  function checkAmount(amount: number){
+      if (amount <= 0) {
+          setAmountIsError(true)
+          setSaveButtonError(true)
+
+      } else {
+          setAmountIsError(false)
+          setSaveButtonError(false)
+
+      }
+      if (amount === undefined) {
+          setSaveButtonError(true)
+      }
+  }
+
     const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
         props.setAmount(event.target.value)
 
-        if (parseFloat(event.target.value) <= 0) {
-            setAmountIsError(true)
-            setSaveButtonError(true)
+        checkAmount(parseFloat(event.target.value))
 
-        } else {
-            setAmountIsError(false)
-            setSaveButtonError(false)
 
-        }
-        if (event.target.value === undefined) {
-            setSaveButtonError(true)
-        }
     }
 
 
@@ -79,7 +85,7 @@ export default function TransactionAddUpdateDelete(props: Props) {
             return null
         }
         props.setDate(moment(date).format("YYYY-MM-DD"))
-
+        checkAmount(parseFloat(props.amount))
 
     }
 
