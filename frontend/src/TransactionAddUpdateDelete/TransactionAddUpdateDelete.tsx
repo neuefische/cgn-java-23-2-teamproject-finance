@@ -7,10 +7,6 @@ import moment from "moment"
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 
 
-
-
-
-
 type Props = {
     submit: (event: FormEvent<HTMLFormElement>) => void,
     setDescription: (event: string) => void,
@@ -41,41 +37,42 @@ export default function TransactionAddUpdateDelete(props: Props) {
     const handleChangeDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
         props.setDescription(event.target.value)
 
-        if (event.target.value.length <= 5 && event.target.value.length > 0) {
+        checkDescription(event.target.value)
+    }
+
+    const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
+        props.setAmount(event.target.value)
+
+        checkAmount(parseFloat(event.target.value))
+    }
+
+    function checkDescription(description: string) {
+        if (description.length <= 5 && description.length > 0) {
             setDescriptionIsError(true)
             setSaveButtonError(true)
         } else {
             setDescriptionIsError(false)
             setSaveButtonError(false)
         }
-        if (event.target.value.length === 0) {
+        if (description.length === 0) {
             setSaveButtonError(true)
         }
     }
 
-  function checkAmount(amount: number){
-      if (amount <= 0) {
-          setAmountIsError(true)
-          setSaveButtonError(true)
+    function checkAmount(amount: number) {
+        if (amount <= 0) {
+            setAmountIsError(true)
+            setSaveButtonError(true)
 
-      } else {
-          setAmountIsError(false)
-          setSaveButtonError(false)
+        } else {
+            setAmountIsError(false)
+            setSaveButtonError(false)
 
-      }
-      if (amount === undefined) {
-          setSaveButtonError(true)
-      }
-  }
-
-    const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.setAmount(event.target.value)
-
-        checkAmount(parseFloat(event.target.value))
-
-
+        }
+        if (amount === undefined) {
+            setSaveButtonError(true)
+        }
     }
-
 
 
     const dateAsDate = moment(props.date).toDate();
@@ -85,9 +82,11 @@ export default function TransactionAddUpdateDelete(props: Props) {
             return null
         }
         props.setDate(moment(date).format("YYYY-MM-DD"))
-        checkAmount(parseFloat(props.amount))
 
+        checkAmount(parseFloat(props.amount))
+        checkDescription(props.description)
     }
+
 
     return (
         <>
