@@ -147,7 +147,7 @@ export default function App() {
     function logout() {
         axios.post("/api/users/logout")
             .catch(console.error)
-            .then(()=>{
+            .then(() => {
                 setUser("anonymousUser")
             })
 
@@ -164,6 +164,7 @@ export default function App() {
 
     function openModalAdd() {
         setIsModalAddOpen(true);
+        setDate(dayjs().format())
     }
 
     function closeModalAdd() {
@@ -202,7 +203,8 @@ export default function App() {
 
                     <Route path="/" element={<div>
                         <p>{user}</p>
-                        <IconButton disableRipple={true} size="small" className={"buttonAdd"} onClick={logout}><LogoutIcon/></IconButton>
+                        <IconButton disableRipple={true} size="small" className={"buttonAdd"}
+                                    onClick={logout}><LogoutIcon/></IconButton>
                         <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
                         <IconButton disableRipple={true} size="small" className={"buttonAdd"}
                                     onClick={openModalAdd}><AddCircle
