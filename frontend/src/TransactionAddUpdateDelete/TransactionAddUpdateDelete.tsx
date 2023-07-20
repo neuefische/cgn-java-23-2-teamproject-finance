@@ -54,7 +54,7 @@ export default function TransactionAddUpdateDelete(props: Props) {
     const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
         props.setAmount(event.target.value)
 
-        if (parseInt(event.target.value) <= 0) {
+        if (parseFloat(event.target.value) <= 0) {
             setAmountIsError(true)
             setSaveButtonError(true)
 
@@ -86,7 +86,7 @@ export default function TransactionAddUpdateDelete(props: Props) {
 
                     <TextField
                         error={descriptionIsError}
-                        helperText={descriptionIsError && "Die Eingabe entspricht nicht den Vorgaben"}type="text"
+                        helperText={descriptionIsError && "Die Eingabe entspricht nicht den Vorgaben"} type="text"
                         required
                         id="outlined-required"
                         label="Beschreibung"
@@ -96,7 +96,7 @@ export default function TransactionAddUpdateDelete(props: Props) {
 
                     <TextField
                         error={amountIsError}
-                        helperText={amountIsError && "Die Eingabe entspricht nicht den Vorgaben"}type="number"
+                        helperText={amountIsError && "Die Eingabe entspricht nicht den Vorgaben"} type="number"
 
                         required
                         id="outlined-required"

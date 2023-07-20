@@ -3,3 +3,29 @@
     transform: scale(150%);
 }
 
+h2 {
+    display: flex;
+    justify-content: center;
+}
+h3 {
+    display: flex;
+    justify-content: center;
+}
+
+.user {
+    display: flex;
+    justify-content: flex-end;
+}
+
+header {
+    left: 0;
+    right: 0;
+    position: fixed;
+    background-color: #7cbec4;
+    z-index: 1000;
+}
+main {
+    position: relative;
+    padding-top: 120px;
+}
+

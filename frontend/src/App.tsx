@@ -10,6 +10,9 @@ import {IconButton} from "@mui/material";
 import {AddCircle} from "@mui/icons-material";
 import './App.css';
 import axios from "axios";
+import LogoutIcon from '@mui/icons-material/Logout';
+import * as dayjs from "dayjs";
+import Modal from 'react-modal';
 
 export default function App() {
 
@@ -43,6 +46,7 @@ export default function App() {
     useEffect(() => {
         loadTransactions()
         me()
+        Modal.setAppElement('#root')
     }, [])
 
 
@@ -135,9 +139,19 @@ export default function App() {
         axios.post("/api/users/login", null, {auth: {username, password}})
             .then((response) => {
                 setUser(response.data)
+                setDate(dayjs().format())
                 navigate("/")
             })
 
+
+    }
+
+    function logout() {
+        axios.post("/api/users/logout")
+            .catch(console.error)
+            .then(() => {
+                setUser("anonymousUser")
+            })
 
     }
 
@@ -152,6 +166,7 @@ export default function App() {
 
     function openModalAdd() {
         setIsModalAddOpen(true);
+        setDate(dayjs().format())
     }
 
     function closeModalAdd() {
@@ -159,7 +174,7 @@ export default function App() {
         setDescription("")
         setAmount("")
         setCategory("INCOME")
-        setDate(null)
+        setDate(dayjs().format())
     }
 
     function openModalUpdate() {
@@ -171,7 +186,7 @@ export default function App() {
         setSelectedDescription("")
         setSelectedAmount("")
         setSelectedCategory("INCOME")
-        setDate(null)
+        setDate(dayjs().format())
         setDeleteButtonVisibility(false);
 
     }
@@ -180,17 +195,23 @@ export default function App() {
     return (
 
         <>
-            <div>
-                <h1>Finanzen virtuelles Tierheim</h1>
-                <p>{user}</p>
-            </div>
 
+                <header>
+                <h2>Finanzen virtuelles Tierheim</h2>
+                    <h3>Buchungsliste</h3>
+                </header>
+
+            <main>
             <Routes>
                 <Route element={<ProtectedRoutes user={user}/>}>
 
                     <Route path="/" element={<div>
-
-                        <TransactionCollection transaction={transactions} update={initializeUpdateComponent}/>
+                        <div className={"user"}>
+                        <p>{user}</p>
+                        <IconButton disableRipple={true} size="small" className={"buttonAdd"}
+                                    onClick={logout}><LogoutIcon/></IconButton>
+                        </div>
+                        <TransactionCollection  transaction={transactions} update={initializeUpdateComponent} />
                         <IconButton disableRipple={true} size="small" className={"buttonAdd"}
                                     onClick={openModalAdd}><AddCircle
                             fontSize={"large"}/></IconButton>
@@ -243,7 +264,7 @@ export default function App() {
 
                 <Route path="/login" element={<LoginPage login={login}/>}/>
             </Routes>
-
+            </main>
         </>
 
 

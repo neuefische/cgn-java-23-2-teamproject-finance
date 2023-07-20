@@ -1,56 +1,97 @@
 import {Transaction} from "../model/model.ts";
-import {IconButton, TableBody, TableCell, TableRow,} from "@mui/material";
+
 import "./TransactionCard.css";
 import EditIcon from '@mui/icons-material/Edit';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import * as dayjs from "dayjs";
+
+import {
+    LeadingActions,
+    SwipeableList,
+    SwipeableListItem,
+    SwipeAction,
+    TrailingActions,
+} from 'react-swipeable-list';
+import 'react-swipeable-list/dist/styles.css';
+import axios from "axios";
 
 
 type Props = {
     transaction: Transaction;
     update: () => void;
+
 };
 
-
 export default function TransactionCard(props: Props) {
+    const leadingActions = () => (
+        <LeadingActions>
+            <SwipeAction onClick={props.update}>
+                Bearbeiten
+            </SwipeAction>
+        </LeadingActions>
+    );
 
+    function callDelete(){
 
-    function createData(
-        date: string,
-        description: string,
-        category: string,
-        amount: string,
-    ) {
-
-        let categoryGerman;
-        if (category === "INCOME") {
-            categoryGerman = "Einnahme"
-        } else {
-            categoryGerman = "Ausgabe"
-        }
-
-        return {date, description, categoryGerman, amount};
+        axios.delete("/api/finance/" + props.transaction.id)
+            .catch(console.error)
     }
 
-    const rows = [
-        createData(props.transaction.date, props.transaction.description, props.transaction.category, props.transaction.amount,)
-    ];
 
-
-    return (
-        <TableBody>
-            {rows.map((row) => (
-                <TableRow
-                    key={row.date.toLocaleString()}
-                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                >
-                    <TableCell component="th" scope="row">{row.date.toLocaleString()}</TableCell>
-                    <TableCell align="right">{row.description}</TableCell>
-                    <TableCell align="right">{row.categoryGerman}</TableCell>
-                    <TableCell align="right">{row.amount} €</TableCell>
-                    <TableCell align="right">
-                        <IconButton disableRipple={true} className={"buttonEdit"} onClick={props.update}><EditIcon/></ IconButton>
-                    </TableCell>
-                </TableRow>
-            ))}
-        </TableBody>
+    const trailingActions = () => (
+        <TrailingActions>
+            <SwipeAction
+                destructive={true}
+                onClick={callDelete}
+            >
+                Löschen
+            </SwipeAction>
+        </TrailingActions>
     );
-}
+
+    let category: string
+
+    if (props.transaction.category === "EXPENSE"){
+        category = "Ausgabe"
+    }else{
+        category= "Einnahme"
+    }
+
+
+        return (
+
+            <SwipeableList>
+                <SwipeableListItem
+                    leadingActions={leadingActions()}
+                    trailingActions={trailingActions()}
+
+                >
+
+            <Card onClick={props.update} sx={{ minWidth: 275, margin: '16px' }}>
+                <CardContent style={{background:"lightblue"}}>
+
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        {dayjs(props.transaction.date).format('DD.MM.YYYY')}
+                    </Typography>
+                    <Typography variant="h5" component="div">
+                        {props.transaction.description}
+                    </Typography>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                        {category}
+                    </Typography>
+                    <Typography variant="body2">
+                        {props.transaction.amount} EUR
+                    </Typography>
+                    <EditIcon/>
+                </CardContent>
+
+            </Card>
+                </SwipeableListItem>
+            </SwipeableList>
+
+        );
+    }
+
+

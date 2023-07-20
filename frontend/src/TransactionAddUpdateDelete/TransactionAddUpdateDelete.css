@@ -13,7 +13,7 @@
 .modal {
 
 
-    background-color: #1c98a3;
+    background-color: LightBlue;
     border-radius: 8px;
     padding: 20px;
     max-width: 600px;
@@ -51,8 +51,8 @@
 }
 
 .row .MuiTextField-root {
-    margin-right: 10px;
-    min-width: 250px;
+    width: 250px;
+    margin: 10px;
 }
 
 
@@ -70,10 +70,6 @@
     }
 }
 
-.row .MuiTextField-root {
-    width: 100%;
-    max-width: 250px;
-    margin: 10px;
-}
+
 
 
