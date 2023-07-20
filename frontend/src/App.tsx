@@ -11,6 +11,7 @@ import {AddCircle} from "@mui/icons-material";
 import './App.css';
 import axios from "axios";
 import LogoutIcon from '@mui/icons-material/Logout';
+import * as dayjs from "dayjs";
 
 export default function App() {
 
@@ -136,6 +137,7 @@ export default function App() {
         axios.post("/api/users/login", null, {auth: {username, password}})
             .then((response) => {
                 setUser(response.data)
+                setDate(dayjs().format())
                 navigate("/")
             })
 
@@ -169,7 +171,7 @@ export default function App() {
         setDescription("")
         setAmount("")
         setCategory("INCOME")
-        setDate(null)
+        setDate(dayjs().format())
     }
 
     function openModalUpdate() {
@@ -181,7 +183,7 @@ export default function App() {
         setSelectedDescription("")
         setSelectedAmount("")
         setSelectedCategory("INCOME")
-        setDate(null)
+        setDate(dayjs().format())
         setDeleteButtonVisibility(false);
 
     }
