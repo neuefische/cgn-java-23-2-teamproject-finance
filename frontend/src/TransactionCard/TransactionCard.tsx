@@ -1,5 +1,5 @@
 import {Transaction} from "../model/model.ts";
-import {IconButton,} from "@mui/material";
+
 import "./TransactionCard.css";
 import EditIcon from '@mui/icons-material/Edit';
 import Card from '@mui/material/Card';
@@ -16,7 +16,7 @@ export default function TransactionCard(props: Props) {
 
 
         return (
-            <Card sx={{ minWidth: 275, margin: '16px' }}  >
+            <Card onClick={props.update} sx={{ minWidth: 275, margin: '16px' }}  >
                 <CardContent style={{background:"lightblue"}}>
 
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -31,7 +31,7 @@ export default function TransactionCard(props: Props) {
                     <Typography variant="body2">
                         {props.transaction.amount}
                     </Typography>
-                    <IconButton disableRipple={true} className={"buttonEdit"} onClick={props.update}><EditIcon/></ IconButton>
+                    <EditIcon/>
                 </CardContent>
 
             </Card>
