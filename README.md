@@ -6,7 +6,8 @@ This mobile application was developed as our team project during [Java Developme
 - Each team project was developed separately and based on scrum with vertical sliced user stories.
 - It was intended to be a review exercise in group as well as a preparation for individual capstone projects conducted in August 2023.
 
-image
+![Teamprojekt](https://github.com/neuefische/cgn-java-23-2-teamproject-finance/assets/82062401/3283d331-4f94-4439-8515-548cb513c9f7=30x30)
+
 
 # Concept
 - The "finance planner" takes charge of budgeting for the animal shelter.
